@@ -4,13 +4,13 @@ Template Naskah Skripsi dengan typesetting LaTeX untuk JTETI Universitas Gadjah 
 
 Diedit dan digunakan untuk keperluan SKRIPSI SARJANA ILMU KOMPUTER.
 
-Diunggah oleh:
-Gregorius Andito Herjuno
-ILMU KOMPUTER 2013
-UNIVERSITAS NEGERI JAKARTA
+Diunggah oleh:  
+Gregorius Andito Herjuno  
+ILMU KOMPUTER 2013  
+UNIVERSITAS NEGERI JAKARTA  
 3145136218
 
-Modifikasi lebih lanjut oleh:
-MOCHAMMAD HANIF RAMADHAN
-ILMU KOMPUTER 2019
+Modifikasi lebih lanjut oleh:  
+MOCHAMMAD HANIF RAMADHAN  
+ILMU KOMPUTER 2019  
 UNIVERSITAS NEGERI JAKARTA
