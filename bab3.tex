@@ -1,0 +1,369 @@
+%!TEX root = ./template-skripsi.tex
+%-------------------------------------------------------------------------------
+%                            BAB III
+%               			PEMBAHASAN
+%-------------------------------------------------------------------------------
+
+\chapter{IMPLEMENTASI PROGRAM DAN REKAYASA PRODUK}
+
+\section{Identifikasi Masalah}
+Sesuai dengan tahapan pengembangan pada \textit{spiral model}, tahapan pertama yang dilakukan adalah identifikasi masalah. Proses pengidentifikasian masalah dilakukan dengan mewawancarai perwakilan anggota Koperasi Mahasiswa Universitas Negeri Jakarta. Berdasarkan wawancara yang telah dilakukan kepada perwakilan anggota Koperasi Mahasiswa Universitas Negeri Jakarta, maka dapat diidentifikasi masalah-masalah yang terjadi pada sistem keorganisasisan Koperasi Mahasiswa UNJ, yaitu:
+
+\begin{enumerate}
+	\item Proses pendaftaran anggota baru dan penyuntingan data anggota masih dilakukan dengan mengisi \emph{google form} secara berulang setiap membutuhkan perubahan sehingga membutuhkan waktu yang lama dalam pengisian atau pencatatan data.
+	\item Proses pengolahan data keanggotaaan, simpanan, pergudangan, barang, transaksi, penilaian, hingga pendistribusian arus keuangan seringkali masih mengalami \emph{human error} dan membutuhkan waktu yang relatif lebih lama karena masih menggunakan metode konvensional dengan menulis laporan dan melakukan perhitungan dengan cara manual.
+\end{enumerate}
+
+Berdasarkan dari identifikasi masalah yang ada maka untuk mengatasi permasalahan tersebut disimpulkan bahwa sistem informasi yang dibutuhkan adalah sebagai berikut:
+
+\begin{enumerate}
+	\item Sistem harus terdiri dari tiga \textit{user}, yaitu \textit{admin}. anggota, dan pengawas.
+	\item Terdapat sistem pendaftaran secara online yang terhubung langsung dengan halaman \textit{admin} agar dapat mengelola data penerimaan anggota baru.
+	\item \textit{Admin} dapat mengelola seluruh data kecuali data penilaian,yaitu data keanggotaaan, simpanan, pergudangan, barang, transaksi, hingga pendistribusian arus keuangan.
+	\item Anggota dapat mengetahui transparansi simpanan yang mereka bayarkan untuk apa saja dan berapa sisa hasil usaha yang mereka dapatkan. Anggota juga dapat mengelola biodata pribadi tanpa harus mengisi seluruh data dari awal kembali.
+	\item Pengawas dapat mengelola data penilaian untuk lembaga. Pengawas juga dapat mengetahui transparansi simpanan hingga pendistribusian sisa hasil usaha layaknya anggota lainnya.
+\end{enumerate}
+
+\section{Perancangan Desain Sistem}
+Perancangan desain sistem menggambarkan pemodelan sistem informasi yang akan dibuat, mulai dari model \emph{entity relationship diagram, use case diagram, class diagram, activity diagram,} dan \emph{mock-up} atau rancangan tampilan sistem.
+
+\subsection{\emph{Entity Relationship Diagram}}
+\emph{ERD} di bawah ini menggambarkan bagaimana pemodelan dan relasi entitas didalam basis data yang akan meyimpan kumpulan data yang dibutuhkan sistem informasi KOPMA UNJ. Berikut pemodelan \emph{ERD} sistem informasi KOPMA UNJ: 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\textwidth]{gambar/ERD}
+	\caption{Desain \emph{Entity Relationship Diagram} Sistem KOPMA UNJ yang akan dikembangkan}
+\end{figure}
+
+\subsection{\emph{Use Case Diagram}}
+\emph{Use Case Diagram} di bawah ini menggambarkan aktor-aktor dan peran-peran yang terdapat dalam sistem informasi KOPMA UNJ. Aktor dalam sistem ini dibagi menjadi tiga, yaitu \textit{admin}, anggota, dan pengawas. Peran-peran aktor tersebut adalah sebagai berikut:
+\begin{enumerate}
+	\item Admin	
+\begin{itemize}
+	\item \emph{Admin} dapat mengelola (tambah, sunting, dan hapus) seluruh pendataan kecuali data penilaian (data keanggotaaan, simpanan, barang, transaksi, stok, penilaian, hingga perhitungan keuangan).
+	\item \emph{Admin} dapat melakukan verifikasi pendaftaran anggota yang mendaftar.
+	\item \emph{Admin} dapat mencetak seluruh data yang ada.
+	\item \emph{Admin} dapat menyunting data pribadi.
+\end{itemize}	
+	\item Anggota
+	\begin{itemize}
+	\item Anggota dapat melakukan pendaftaran dengan mengisi forrmulir pendaftaran, pendaftaran dilakukan agar anggota mendapatkan akses ke dalam sistem.
+	\item Anggota dapat melihat seluruh data yang dikelola oleh \emph{admin} dan pengawas.
+	\item Anggota dapat menyunting data pribadi.
+	\end{itemize}		
+	\item Pengawas
+	\begin{itemize}
+	\item Pengawas dapat mengelola seluruh data penilaian.
+	\item Pengawas dapat mencetak data penilaian.
+	\item Pengawas dapat menyunting data pribadi.	
+	\end{itemize}	
+\end{enumerate}	
+
+Berikut adalah \emph{Use Case Diagram} dari sistem informasi KOPMA UNJ.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/Usecase}
+	\caption{Desain \emph{Use Case Diagram} Sistem KOPMA UNJ yang akan dikembangkan}
+\end{figure}
+
+\subsection{\emph{Class Diagram}}
+Desain \emph{class diagram} pada sistem informasi KOPMA UNJ memiliki 10 \emph{class}. \emph{Class user} memiliki tiga \emph{subclass}, \emph{class} anggota, \emph{class admin}, dan \emph{class} pengawas. Metode dan atribut yang ada di dalam \emph{class user} dapat diakses oleh \emph{subclass}nya seperti \emph{login}, \emph{logout}, dan daftar. \emph{Class} anggota, merupakan \emph{class} yang memiliki fungsi untuk menyunting biodatanya sendiri. \emph{Class admin} berfungsi untuk mengelola seluruh data yang ada di dalam sistem kecuali data penilaian, yaitu simpanan, barang, stok, anggota, transaksi, dan perhitungan baik dalam hal penambahan, penghapusan, penyuntingan, perekapan, pencetakan hingga proses verifikasi penerimaan. \emph{Class} pengawas berfungsi untuk mengelola data penilaian, baik penambahan nilai baru, penyuntingan, penghapusan, perekapan, hingga pencetakan data penilaian. \emph{Class} simpanan, barang, stok, anggota, transaksi, perhitungan, dan penilaian berfungsi untuk pengelolaan nilai masukan dari \emph{user} yang juga berisi rumusan usaha, SHU, hingga penilaian. Berikut adalah \emph{Class Diagram} dari sistem informasi KOPMA UNJ. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.90\textwidth]{gambar/Class}
+	\caption{Desain \emph{Class Diagram} Sistem KOPMA UNJ yang akan dikembangkan}
+\end{figure}
+
+\subsection{\emph{Activity Diagram}}
+Desain \emph{Activity diagram} pada sistem ini dibuat menjadi 4 diagram, yaitu pendaftaran, pengelolaan, transaksi, dan penilaian. Alur \emph{Activity diagram} pendaftaran adalah, pertama anggota harus memilih tombol daftar di halaman \emph{login}, jika sudah maka sistem akan memunculkan formulir pendaftaran yang harus diisi. Pengisian data harus diisi secara lengkap, kemudian setelah dikirim data tersebut akan disimpan di sistem, jika pendaftar membayar simpanan, \emph{admin} akan melakukan verifikasi dan jika tidak maka data akan dihapus dari sistem. Jika \textit{admin} sudah melakukan verifikasi penerimaan maka sistem akan mengatur otomatis kode anggota yang didapatkan pendaftar tersebut. Berikut \textit{activity diagram} pada bagian pendaftaran anggota.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/A_Daftar}
+	\caption{Desain \emph{Activity Diagram} Sistem Pendaftaran Anggota KOPMA UNJ}
+\end{figure}
+
+Selanjutnya pada alur \emph{activity diagram} pengelolaan data, pertama \emph{admin} harus masuk terlebih dahulu ke dalam sistem, setelah itu sistem akan menampilkan menu data dimana terdapat \emph{submenu} simpanan, barang, anggota, stok, dan perhitungan. \emph{Admin} dapat memilih salah satu \emph{submenu} yang berkaitan dengan kebutuhan dan \emph{admin} dapat melakukan penambahan, penghapusan, penyuntingan, perekapan, hingga pencetakan data. Data yang \textit{admin} kelola kemudian dapat dilihat oleh seluruh \textit{user} lainnya, baik anggota maupun pengawas. Berikut merupakan \textit{activity diagram} sistem pengelolaan data oleh \textit{admin}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/A_Kelola}
+	\caption{Desain \emph{Activity Diagram} Sistem Pengelolaan Oleh \emph{Admin} KOPMA UNJ}
+\end{figure}
+
+Selanjutnya pada alur \emph{activity diagram} transaksi, pertama \emph{admin} harus masuk terlebih dahulu ke dalam sistem dan \emph{Admin} harus memilih menu transaksi. Pada menu transaksi, \textit{admin} dapat menambahkan transaksi, dimana ketika transakti ditambah maka \textit{admin} akan menggunakan mesin \textit{scanning barcode} untuk mendeteksi kode barang agar terisi pada kolom kode barang. Setelah itu \textit{admin} melengkapi formulir lainnya seperti kode anggota dan potongan. Setelah semua data terisi maka proses transaksi selesai. Adapun jikalau \textit{admin} melakukan sedikit kesalahan, data dapat dihapus dengan memilih tombol hapus. Berikut merupakan diagram aktivitas proses transaksi yang dikelola oleh \textit{admin}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/A_Kelola}
+	\caption{Desain \emph{Activity Diagram} Sistem Transaksi Oleh \emph{Admin} KOPMA UNJ}
+\end{figure}
+
+Selanjutnya pada alur \emph{activity diagram} penilaian, pertama pengawas harus masuk ke dalam sistem terlebih dahulu, kemudian pengawas harus memilih \emph{submenu} penilaian. \emph{Submenu} penilaian berisi daftar penilaian beserta tombol aksi dimana pengawas dapat menambah, menghapus, menyunting, merekap, hingga mencetak data penilaian. Data yang pengawas kelola kemudian dapat dilihat oleh \textit{admin} dan anggota. \textit{Admin} sekalipun tidak dapat mengelola data penilaian. Berikut \textit{activity diagram} sistem pengelolaan penilaian oleh pengawas.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/A_Nilai}
+	\caption{Desain \emph{Activity Diagram} Sistem Pengelolaan Nilai Oleh Pengawas KOPMA UNJ}
+\end{figure}
+
+\subsection{\emph{Database}}
+\emph{Database} sistem informasi yang akan dibuat memiliki sembilan tabel, yaitu tabel \emph{user}, anggota, simpanan, barang, stok, transaksi, perhitungan, dan penilaian. Semua tabel tersebut terhubung satu sama lain kecuali tabel penilaian yang berdiri sendiri. Berikut relasi antar tabel dalam \emph{database} yang akan dibangun. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/Database}
+	\caption{Desain \emph{Database} Sistem KOPMA UNJ yang akan dikembangkan}
+\end{figure}
+
+Dapat dilihat dari gambar diatas bahwa tabel anggota memiliki relasi \textit{one-to-one} dengan tabel \textit{user} dan perhitungan, \textit{one-to-many} dengan tabel simpanan dan transaksi dengan id\_anggota sebagai \textit{foreign key}. Selain dengan tabel anggota, tabel transaksi juga memiliki relasi \textit{many-to-many} dengan tabel barang menggunakan id\_barang sebagai \textit{foreign key} dan \textit{one-to-many} dengan tabel perhitungan menggunakan id\_transaksi sebagai \textit{foreign key}. Untuk tabel barang, relasi yang ada selain dengan tabel transaksi adalah relasi \textit{one-to-many} dengan tabel stok dengan id\_stok sebagai \textit{foreign key}. Tabel terakhir yang tidak memiliki relasi sama sekali adalah tabel penilaian dikarenakan tidak berkaitan dengan proses pengelolaan dana koperasi, hanya berkaitan dengan penilaian koperasi.
+
+\subsection{\emph{Mock-Up}}
+\emph{Mock-up} merupakan rancangan tampilan sistem. Tampilan awal sistem akan memunculkan halaman selamat datang yang berisi formulir \emph{login} yang berisi \emph{username} dan \emph{password} milik \emph{user}. \emph{User} yang sudah memiliki \emph{username} dan \emph{password} dapat masuk ke sistem dengan mengisi formulir \emph{username} dan \emph{password}. Berikut tampilan halaman awal atau halaman \emph{login}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/Login}
+	\caption{Tampilan Halaman \emph{Login User}}
+\end{figure}
+
+\emph{User} yang belum memiliki akun dapat memilih tombol daftar dan \emph{user} akan disuguhkan tampilan formulir pendaftaran yang berisi biodata yang harus diisi. Sebelum data lengkap, tombol daftar yang akan mengirim dan menyimpan data ke dalam sistem tidak akan aktif. Verifikasi \emph{e-mail} dan \emph{username} akan dilakukan saat mendaftar, jika data yang diisi sudah pernah digunakan maka formulir akan meminta data diubah terlebih dahulu kemudian tombol daftar akan aktif. Berikut tampilan halaman pendaftaran. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/Daftar}
+	\caption{Tampilan Halaman Pendaftaran Anggota KOPMA UNJ}
+\end{figure}
+
+\emph{User} yang sudah \emph{login} akan dibawa masuk ke dalam sistem, baik anggota, admin, dan pengawas akan dibawa ke dalam berandanya masing-masing. Menu yang ditampilkan adalah menu biodata, lihat data, shu, dan tombol untuk keluar. Berikut merupakan tampilan halaman biodata  anggota yang dapat disunting oleh anggota dan tampilan transparansi SHU yang anggota dapatkan.  
+	
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/Biodata}
+	\caption{Tampilan Halaman Biodata Anggota}
+\end{figure}	
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/shu}
+	\caption{Tampilan Halaman Transparansi SHU Milik Anggota}
+\end{figure}	
+
+Berikut merupakan salah satu tampilan halaman \emph{submenu} dari menu lihat data dimana anggota hanya dapat melihat seluruh data namun tidak dapat mengelola data-data tersebut. Konten \emph{submenu}, selain barang masih terdapat \emph{submenu} lainnya yaitu simpanan, stok, penilaian, dan transaksi.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/List_Barang}
+	\caption{Tampilan Halaman \emph{Submenu} Barang dalam Beranda Anggota}
+\end{figure}
+	
+Tampilan beranda \emph{admin} menyajikan menu yang sama dengan anggota. Berikut merupakan menu lihat data pada beranda \emph{admin}, yang membedakan menu lihat data pada beranda \emph{admin} dan anggota adalah pada \emph{admin} data yang ditampilkan dapat diolah sesuka \emph{admin}, dimana tombol rekap data, cetak, tambah, sunting, dan hapus merupakan tombol bantuan untuk \emph{admin} dalam mengolah seluruh data kecuali penilaian karena keterbatasan hak \emph{admin}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/Barang}
+	\caption{Tampilan Halaman Beranda \emph{Admin}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/Transaksi}
+	\caption{Tampilan Halaman Tambah Transaksi Pada \emph{Admin}}
+\end{figure}
+
+Berikut merupakan tampilan halaman menu verifikasi, dimana di dalamnya terdapat \emph{submenu} verifikasi anggota, \textit{admin}, dan pengawas. Kolom data akan menampilkan pilihan untuk \emph{admin}, tombol verifikasi terhadap anggota, admin, atau pengawas, yaitu terima untuk semua dan tidak. Terima berarti data akan tersimpan dan tidak berarti data akan dihilangkan.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/Verif}
+	\caption{Tampilan Halaman Verifikasi Milik \emph{Admin}}
+\end{figure}
+
+\textit{User} terakhir yaitu pengawas, menu yang ditampilkan di beranda adalah menu biodata dan lihat data. Menu biodata yang ada di pengawas layaknya menu biodata di \textit{user} lain, yaitu untuk mengetahui data pribadi secara detil dan data tersebut kemudian dapat disunting jikalau ada perubahn yang dibutuhkan. Menu lihat data juga sama dengan menu lihat data pada anggota, dimana pengawas hanya dapat melihat data. Pengecualian untuk data penilaian, pengawas dapat mengelola data penilaian secara menyeluruh, dimana \textit{user} lain tidak dapat melakukannya.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/Nilai}
+	\caption{Tampilan Halaman Kelola Penilaian Milik Pengawas}
+\end{figure} 
+
+\section{Implementasi Rancangan Program}
+Tahap implementasi bertujuan untuk menerapkan atau mengimplementasikan desain sistem yang telah dirancang menjadi aplikasi sistem informasi dengan bahasa komputer berdasarkan kebutuhan lapangan. Tahapan implementasi yang dilakukan adalah membangun basis data, implementasi desain sistem baik pada bagian tampilan (\textit{front-end}) maupun bagian dalam sistem (\textit{back-end}).
+
+\subsection{Basis Data (\textit{Database})}
+Basis data dibangun menggunakan MySQL PHPMyAdmin pada aplikasi XAMPP berdasarkan desain \textit{ERD} dan relasi basis data yang sudah dirancang pada tahap perancangan desain sistem. Baik kesesuaian tabel, kolom, dan relasinya juga disesuaikan dengan kebutuhan yang tergambar pada tahap perancangan desain sistem. Berikut merupakan tabel-tabel yang sudah dibuat beserta relasinya yang ada pada MySQL.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/table_db}
+	\caption{Basis Data Sistem Informasi KOPMA UNJ}
+\end{figure} 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/db_relation}
+	\caption{Relasi Antar Tabel Basis Data Sistem Informasi KOPMA UNJ}
+\end{figure} 
+
+\subsection{Desaim Tampilan Antarmuka (Front-End)}
+Desain tampilan antarmuka (\textit{Front-End}) sistem informasi KOPMA UNJ dibangun menggunakan \textit{framework bootstrap}. Tampilan sistem informasi KOPMA UNJ juga disesuaikan dengan rancangan yang ada, dimana penulisan dilakukan dengan menggunakan aplikasi \textit{text editor} yaitu \textit{atom} dan pengeksekusian program desain tampilan antarmuka dilakukan dengan menggunakan \textit{browser} yang alamatnya disesuaikan dengan alamat tampilan.
+
+Tampilan laman yang pertama ditampilkan adalah halaman \textit{login user}, dimana baik \textit{admin}, anggota, dan pengawas harus mengisi formulir \textit{username} dan \textit{password} yang sesuai agar dapat masuk ke dalam berandanya masing-masing. Jikalau ada \textit{user} yang belum terdaftar sebagai anggota, maka di halaman ini juga disediakan tombol untuk daftar yang akan mengarahkan \textit{user} ke halaman pendaftaran.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_login}
+	\caption{Tampilan Halaman \textit{Login} Sistem Informasi KOPMA UNJ}
+\end{figure} 
+
+Selanjutnya, pada halaman pendaftaran berisi formulir yang didalamnya memuat syarat-syarat biodata yang harus diisi oleh calon anggota. Bagi calon anggota yang ingin mendaftarkan diri ke KOPMA UNJ harus mengisi data sebaik-baiknya dan setelah itu memilih tombol daftar. Apabila \textit{user} yang mengunjungi halaman pendaftaran membatalkan niat untuk mendaftarkan diri atau hanya sekedar ingin melihat, maka ada tombol batal daftar yang akan mengarahkan \textit{user} ke halaman \textit{login user}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_daftar}
+	\caption{Tampilan Halaman Pendaftaran Sistem Informasi KOPMA UNJ}
+\end{figure} 
+
+Kemudian misalnya ketika \textit{Admin} melakukan \textit{login}, maka \textit{admin} akan otomatis terbawa masuk ke dalam halaman beranda \textit{admin}. Beranda \textit{admin} didalamnya memuat 7 \textit{submenu}, yaitu \textit{master}, anggota, barang usaha, stok, simpanan, transaksi, dan penilaian. Seluruh \textit{submenu} yang ada pada beranda \textit{admin} kecuali \textit{submenu} penilaian dapat dikelola (tambah, hapus, sunting, dan cetak) oleh \textit{admin}, namun tidak sepenuhnya semua \textit{submenu} memiliki fitur sunting karena disesuaikan dengan kebutuhan sistem perkoperasian.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_dash_admin}
+	\caption{Tampilan Halaman Beranda \textit{Admin}}
+\end{figure} 
+
+Pertama \textit{submenu master}, \textit{submenu master} pada beranda \textit{admin} menampilkan 4 jenis kartu yang terdiri dari data pribadi, penerimaan anggota, arus keuangan, dan kelola \textit{admin} \& pengawas. Semua data tersebut merupakan data yang dapat dikelola sepenuhnya oleh \textit{admin}. Kartu data pribadi di dalamnya berisikan biodata \textit{admin} atau \textit{user} yang \textit{login} ke dalam sistem. Transparansi keuangan yang dibayarkan dan didapatkan oleh \textit{user} tersebut juga akan terlihat secara \textit{real-time}. Biodata merupakan satu-satunya bagian yang dapat disunting oleh seluruh \textit{user}, sehingga ketika ada perubahan yang dibutuhkan \textit{user} hanya perlu mengganti data yang berubah dan tidak perlu mengisi data sedari awal kembali.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_bio}
+	\caption{Tampilan Halaman Biodata \textit{User}}
+\end{figure} 
+
+Selanjutnya pada kartu penerimaan anggota, kartu berisi laman verifikasi yang hanya dapat dilakukan oleh \textit{admin}. Ketika \textit{user} yang belum terdaftar ingin menjadi anggota telah mengisi formulir pendaftaran dan menekan tombol daftar, maka data tersebut akan masuk ke dalam halaman penerimaan anggota milik \textit{admin}. \textit{Admin} memiliki wewenang untuk menerima atau menolak anggota. Ketika anggota menyelesaikan proses pendaftaran dengan cara membayar simpanan dan menyerahkan buktinya, maka \textit{admin} dapat memilih tombol terima anggota yang berarti calon anggota statusnya berubah menjadi anggota, dimana anggota kemudian akan mendapatkan kode anggota dan \textit{password} hasil olahan sistem. Sebaliknya, jika anggota tidak menyelesaikan proses pendaftaran, maka \textit{admin} dapat memilih tombol tolak anggota yang berarti data pendaftar tersebut akan dihapus dari sistem.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_terima}
+	\caption{Tampilan Halaman Verifikasi Penerimaan Anggota KOPMA UNJ}
+\end{figure} 
+
+Kemudian pada kartu arus keuangan, didalamnya berisikan data-data siklus keuangan KOPMA UNJ selama satu periode, baik itu data total simpanan, seluruh transaksi, transaksi anggota, pengeluaran, pemasukan, hingga pendistribusian persentase keuangan untuk kebutuhan KOPMA UNJ dan para anggota. Data arus keuangan dikelola oleh sistem secara otomatis, hanya pada bagian dana tambahan dan beban tambahan saja yang dapat \textit{admin} kelola, sehingga dana koperasi dapat seimbang antara jumlah modal, pemasukan, pengeluaran, hingga keuntungan di KOPMA UNJ. Laman arus keuangan memiliki 4 fungsi utama yang dapat dieksekusi oleh \textit{admin}, yaitu tombol sunting data keuangan (tambahan dana dan beban lain), hapus periode keuangan, detail arus keuangan, dan tambah periode jika sudah memasuki periode baru.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_uang}
+	\caption{Tampilan Halaman Pengelolaan Arus Keuangan KOPMA UNJ}
+\end{figure} 
+
+Kartu terakhir yaitu kartu pengelolaan \textit{admin} dan pengawas. Halaman pengelolaan \textit{admin} dan pengawas menampilkan dua kartu, untuk mengelola \textit{admin} dan mengelola pengawas. Jika dipilih kartu \textit{admin}, maka sistem akan menampilkan halaman pengelolaan status \textit{admin} begitu pula sebaliknya jika dipilih kartu pengawas maka sistem akan menampilkan halaman pengelolaan status pengawas. Halaman awal masing-masing \textit{user} (\textit{admin} dan pengawas) akan menampilkan \textit{user} yang memiliki status \textit{admin} atau pengawas. Jika dipilih tombol dengan simbol "x" maka status \textit{admin} atau pengawas yang dipilih akan berubah menjadi anggota biasa. Halaman tersebut juga menampilkan tombol tambah \textit{admin} atau pengawas, dimana ketika dipilih maka akan muncul daftar nama seluruh anggota yang statusnya adalah anggota biasa yang kemudian jika dipilih tombol bersimbol "+" pada salah satu nama anggota maka anggota tersebut statusnya berubah menjadi \textit{admin} atau pengawas.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_kelola}
+	\caption{Tampilan Halaman Pengelolaan untuk Memilih \textit{Admin}}
+\end{figure} 
+
+\textit{Submenu} pada beranda \textit{admin} selain master adalah \textit{submenu} anggota, barang, stok, transaksi, dan penilaian. Seluruh \textit{submenu} tersebut kecuali \textit{submenu} penilaian dapat dikelola oleh \textit{admin}. \textit{Submenu} penilaian tidak dapat dikelola oleh \textit{admin}, karena penilaian merupakan wewenang pengawas yang mengartikan \textit{admin} hanya dapat melihat penilaiannya saja tanpa dapat dikelola olehnya. Berikut merupakan contoh \textit{submenu} yang dapat dikelola oleh \textit{admin} yaitu \textit{submenu} anggota, \textit{submenu} anggota menampilkan seluruh data anggota kecuali \textit{password}. Ada delapan fungsi utama yang tersedia pada data anggota di beranda \textit{admin}, yaitu detail untuk mengetahui data detail anggota, putihkan untuk memutihkan anggota yang belum membayar simpanan, sunting untuk menyunting data anggota, \textit{reset password} untuk mengembalikan \textit{password} anggota menjadi kode anggota, lanjut periode untuk menambahkan masa keanggotaan di KOPMA UNJ, dan hapus untuk menghilangkan data dari sistem, contohnya ketika saat anggota dikenakan pemutihan khusus. Dua tombol lainnya adalah tambah data untuk menambah anggota dan cetak data untuk melakukan \textit{export} data yang ditampilkan di sistem menjadi data berbentuk \textit{excel}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_admin_anggota}
+	\caption{Tampilan Halaman Pengelolaan Anggota oleh \textit{Admin}}
+\end{figure} 
+
+Seperti yang dipaparkan di beranda pengelolaan \textit{admin}, seluruh \textit{submenu} kecuali menu penilaian dapat dikelola oleh \textit{admin}. Fungsi pengelolaan pertama adalah fungsi tambah, yang digunakan untuk menambahkan data ke dalam sistem. Berikut adalah contoh penambahan transaksi yang dilakukan oleh \textit{admin}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_admin_tambah_transaksi}
+	\caption{Tampilan Halaman Tambah Transaksi oleh \textit{Admin}}
+\end{figure} 
+
+Selanjutnya fungsi sunting data, dimana jikalau ada perubahan yang dibutuhkan, \textit{admin} dapat menyunting data sesuai dengan perubahan yang dibutuhkan. Berikut merupakan contoh tampilan penyuntingan data anggota.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_admin_edit_anggota}
+	\caption{Tampilan Halaman Penyuntingan Data Keanggotaan oleh \textit{Admin}}
+\end{figure} 
+
+Terakhir adalah fungsi cetak data, dimana data yang ada pada sistem akan dicetak menjadi data berbentuk \textit{excel}. Berikut adalah tampilan tombol cetak data pada \textit{submenu} barang dan juga contoh tampilan \textit{excel} hasil \textit{export} data barang.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_admin_cetak}
+	\caption{Tampilan Menu Cetak Data Barang pada \textit{Admin}}
+\end{figure} 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/excel_data}
+	\caption{Tampilan Hasil Cetak Data Barang pada \textit{Microsoft Excel}}
+\end{figure} 
+
+Tampilan \textit{user} kedua adalah tampilan halaman beranda \textit{user} berstatus anggota. \textit{User} yang berstatus anggota ketika \textit{login} otomatis masuk ke beranda anggota. Tampilan beranda anggota memiliki \textit{submenu} master (biodata dan arus keuangan), barang, stok, transaksi, dan penilaian. \textit{User} yang berstatus sebagai anggota tidak dapat melakukan pengelolaan data apapun kecuali biodata pribadi. Berikut merupakan contoh tampilan biodata pada anggota dan tampilan data barang pada anggota.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_anggota}
+	\caption{Tampilan Halaman Beranda Anggota}
+\end{figure} 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_anggota_barang}
+	\caption{Tampilan Halaman Daftar Barang pada Anggota}
+\end{figure} 
+
+Tampilan \textit{user} terakhir adalah tampilan beranda \textit{user} berstatus pengawas. Tampilan beranda pengawas sama dengan tampilan halaman yang ditampilkan oleh beranda anggota. Perbedaan yang ada pada tampilan beranda pengawas adalah pada \textit{submenu} penilaian. Pada \textit{submenu} penilaian, pengawas dapat melakukan pengelolaan data sebagaimana \textit{admin} dalam mengelola data simpanan hingga perhitungan. Berikut merupakan tampilan beranda pengawas, tampilan menu tambah, sunting data penilaian, dan daftar penilaian.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_pengawas}
+	\caption{Tampilan Halaman Beranda Pengawas}
+\end{figure} 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_pengawas_tambah}
+	\caption{Tampilan Halaman Tambah Penilaian pada Pengawas}
+\end{figure} 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_pengawas_edit}
+	\caption{Tampilan Halaman Sunting Data Penilaian pada Pengawas}
+\end{figure} 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/web_pengawas_nilai}
+	\caption{Tampilan Halaman Daftar Penilaian pada Pengawas}
+\end{figure} 
+
+\subsection{Implementasi Sistem (Back-End)}
+Implementasi sistem (\textit{back-end}) dilakukan untuk membangun seluruh fungsi atau kebutuhan sistem yang kemudian dapat dijalankan oleh \textit{user}. Pembangunan \textit{back-end} pada sistem informasi KOPMA UNJ dicapai menggunakan bahasa pemrograman \textit{PHP} dengan bantuan \textit{framework codeigniter}. Proses pembangunan sistem dilakukan dengan menggunakan \textit{pattern MVC} yang diterapkan oleh \textit{framework codeigniter}. Konsep \textit{MVC} terdiri dari \textit{model} yang digunakan untuk mengelola kebutuhan basis data, \textit{view} yang digunakan untuk mengelola tampilan \textit{front-end}, dan \textit{controller} yang menjadi penghubung antara \textit{model} dan \textit{view}. Berikut merupakan sampel pemrograman yang dilakukan dengan menggunakan \textit{text editor} bernama \textit{atom}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/ctrl_anggota}
+	\caption{Struktur Pemrograman \textit{Controller} Anggota}
+\end{figure} 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/model_anggota}
+	\caption{Struktur Pemrograman \textit{Model} Anggota}
+\end{figure} 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{gambar/view_anggota}
+	\caption{Struktur Pemrograman \textit{View} Anggota}
+\end{figure} 
+
+\textit{Controller} anggota berfungsi sebagai penghubung antara \textit{model} anggota dan \textit{view} anggota. Ketika dieksekusi, \textit{controller} anggota akan memanggil \textit{model} anggota yang menjalankan peran dalam melakukan pengelolaan data di dalam \textit{database}. Data yang dikelola oleh \textit{model} anggota kemudian di kirim oleh \textit{controller} anggota untuk ditampilkan oleh \textit{view} anggota.
