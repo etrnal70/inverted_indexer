@@ -22,14 +22,14 @@
 
 \setlength{\paperwidth}{210mm}
 \setlength{\paperheight}{297mm}
-\RequirePackage[pass]{geometry}
-\RequirePackage{verbatim,enumerate}
+\usepackage[pass]{geometry}
+\usepackage{verbatim,enumerate}
 
-\RequirePackage{booktabs}
-\RequirePackage[table]{xcolor}
-\RequirePackage{multirow}
-\RequirePackage{float}
-\RequirePackage{indentfirst}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{indentfirst}
 
 \newif\if@msthesis
 \newif\if@msproposal
@@ -51,7 +51,7 @@
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
 \ExecuteOptions{jtetiskripsi,duaspasi,indonesia}
-\ProcessOptions{}
+\ProcessOptions
 \LoadClass[a4paper,12pt]{report}
 %\RequirePackage{natbib}
 %\bibliographystyle{myIEEEtran}
@@ -96,12 +96,12 @@
 %Redefine chapter and sections
 %------------------------------------------------------------
 \setcounter{secnumdepth}{2}
-\renewcommand\thepart{\@Roman\c@part}
-\renewcommand\thechapter{\@Roman\c@chapter}
+\renewcommand \thepart {\@Roman\c@part}
+\renewcommand \thechapter {\@Roman\c@chapter}
 %\renewcommand \thesection {\@arabic\c@section.}
-\renewcommand\thesection{\@arabic\c@chapter.\@arabic\c@section}
+\renewcommand \thesection {\@arabic\c@chapter.\@arabic\c@section}
 %\renewcommand\thesubsection {\@alph\c@subsection.}
-\renewcommand\thesubsection{\@arabic\c@chapter.\@arabic\c@section.\@arabic\c@subsection}
+\renewcommand\thesubsection {\@arabic\c@chapter.\@arabic\c@section.\@arabic\c@subsection}
 %\renewcommand\thesubsubsection{\@roman\c@subsubsection.}
 %\renewcommand\thesubsubsection{}
 \renewcommand\appendix{\par
@@ -114,19 +114,19 @@
   \@afterindenttrue %Indent the 1st paragraph
   \secdef\@chapter\@schapter}
 \renewcommand{\@makechapterhead}[1]{%
-  {\parindent\z@ \centering \normalfont{}
-    \ifnum\c@secnumdepth >\m@ne
-        \large\bfseries \@chapapp\space \thechapter{}
-        \par\nobreak{}
+  {\parindent \z@ \centering \normalfont 
+    \ifnum \c@secnumdepth >\m@ne
+        \large\bfseries \@chapapp\space \thechapter
+        \par\nobreak
         \vskip 5\p@
     \fi
     \interlinepenalty\@M
-    \large \bfseries #1\par\nobreak{}
+    \large \bfseries #1\par\nobreak
     \vskip 20\p@
     }}
 \renewcommand{\@makeschapterhead}[1]{%
-  {\parindent\z@ \centering \normalfont{}
-    \interlinepenalty\@M \large \bfseries #1\par\nobreak\vskip 20\p@ }}
+  {\parindent \z@ \centering \normalfont
+    \interlinepenalty\@M \large \bfseries #1\par\nobreak \vskip 20\p@ }}
 %\renewcommand{\section}{\@startsection {section}{1}{\z@}%
 %                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
 %                                   {2.3ex \@plus.2ex}%
@@ -150,12 +150,12 @@
 \renewcommand{\paragraph}{\subparagraph}
 
 \@addtoreset {equation}{chapter}
-\renewcommand\theequation{}
-  {\ifnum\c@chapter>\z@ \@arabic\c@chapter.\fi \@arabic\c@equation}
-\renewcommand\thefigure{}
-     {\ifnum\c@chapter>\z@ \@arabic\c@chapter.\fi \@arabic\c@figure}
-\renewcommand\thetable{}
-     {\ifnum\c@chapter>\z@ \@arabic\c@chapter.\fi \@arabic\c@table}
+\renewcommand\theequation
+  {\ifnum \c@chapter>\z@ \@arabic\c@chapter.\fi \@arabic\c@equation}
+\renewcommand \thefigure
+     {\ifnum \c@chapter>\z@ \@arabic\c@chapter.\fi \@arabic\c@figure}
+\renewcommand \thetable
+     {\ifnum \c@chapter>\z@ \@arabic\c@chapter.\fi \@arabic\c@table}
 
 %------------------------------------------------------------
 %Redefine caption names
@@ -216,9 +216,9 @@
 \newcommand{\@idnum}{}
 \newcommand{\examdate}[1]{\gdef\@examdate{#1}}
 \newcommand{\approvaldate}[1]{\gdef\@approvaldate{#1}}
-\newcommand{\@examdate}{\number\day~\ifcase\month\or{}
-    Januari\or{}Februari\or{}Maret\or{}April\or{}Mei\or{}Juni\or{}
-    Juli\or{}Agustus\or{}September\or{}Oktober\or{}November\or{}Desember\fi
+\newcommand{\@examdate}{\number\day~\ifcase\month\or
+    Januari\or Februari\or Maret\or April\or Mei\or Juni\or
+    Juli\or Agustus\or September\or Oktober\or November\or Desember\fi
     \space \number\year}
 \newcommand{\degree}[1]{\gdef\@degree{#1}}
 \newcommand{\@degree}{}
@@ -248,7 +248,7 @@
   \setcounter{page}{1}
     \begin{center}
       \begin{singlespace}
-        \fontsize{14pt}{16pt}\selectfont\MakeUppercase{\normalfont\bfseries\@titleind}\par\nobreak{}
+      \fontsize{14pt}{16pt}\selectfont\MakeUppercase{\normalfont\bfseries\@titleind}\par\nobreak
       \vspace{1.5cm}
 	  \normalfont\bfseries Skripsi \\
       \vspace{1.0cm}
@@ -258,12 +258,12 @@
        \vfill
        \includegraphics[width=0.4\textwidth]{gambar/logounj.png}
        \vfill
-        {\normalfont{}
+       {\normalfont
         \bfseries Oleh:\\
         \normalfont\bfseries \@fullname\\
         \normalfont\bfseries \@idnum}\\
        \vspace{1.5cm}
-        {\normalfont{}
+       {\normalfont 
          \MakeUppercase{\normalfont\bfseries Program Studi \@dept}\\
          \MakeUppercase{\normalfont\bfseries\@faculty}\\ \MakeUppercase{\normalfont\bfseries\@university}\\
          %\MakeUppercase{\normalfont\bfseries\@city}\\
@@ -280,7 +280,7 @@
   \chapter*{\approvalname}%
   \begin{center}
   \begin{doublespace}
-    \MakeUppercase{\normalfont\bfseries\@titleind}\par\nobreak{}
+        \MakeUppercase{\normalfont\bfseries\@titleind}\par\nobreak
     \vspace{1.0cm}
     \MakeUppercase{\normalfont\bfseries\expandafter{Skripsi}}\\
     \vspace{1.0cm}
@@ -306,7 +306,7 @@
       \vspace{0.5cm} & \vspace{0.5cm} & \vspace{1cm}\\
       \textbf{\underline{\@firstsupervisor}}& &
       \textbf{\underline{\@secondsupervisor}} \\
-      \bfseries NIP.\@firstnip & & \bfseries NIP.\@secondnip    
+      \bfseries NIP. \@firstnip & & \bfseries NIP. \@secondnip    
     \end{tabular}
     \end{singlespace}
 
@@ -349,7 +349,7 @@
 \def\abstractind{%
   \clearpage\thispagestyle{chapterheading}%
   \chapter*{\abstractname}%
-  {\parindent\z@ \centering \normalfont{}
+  {\parindent \z@ \centering \normalfont
   %{\large\textbf{\abstractname}} \\
   \vspace{1.0cm}
     }
@@ -364,7 +364,7 @@
 \def\abstracteng{%
   \clearpage\thispagestyle{chapterheading}\selectlanguage{english}
   \chapter*{\abstractname}%
-  {\parindent\z@ \centering \normalfont{}
+  {\parindent \z@ \centering \normalfont
   %{\large\textbf{\abstractname}} \\
   \vspace{1.0cm}
     }
