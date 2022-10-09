@@ -6,104 +6,138 @@
 
 \chapter{PENDAHULUAN}
 
-\section{Latar Belakang Masalah}
-
-Mesin pencari atau \emph{search engine} adalah program komputer yang dirancang untuk melakukan pencarian situs web. \emph{Search engine} pertama kali diperkenalkan oleh Alan Emtage pada tahun 1990 dengan nama \emph{Archie}. Prinsip keja \emph{Archie} adalah melakukan pengindeksan semua \emph{file} pada web. Tujuannya untuk mempermudah pengguna internet mencari lokasi \emph{file} yang diinginkan~\cite{seymour2011history}.
+\section{Latar Belakang Masalah }
 
 % Intro
+Mesin pencari atau \emph{search engine} adalah program komputer yang digunakan 
+untuk melakukan pencarian situs web. Mesin pencari membutuhkan data ketersediaan
+situs web sebelum dapat digunakan.
+
+% Sejarah mesin pencari
+Dalam perkembangannya, berbagai metode digunakan untuk mengumpulkan dan
+menyimpan data situs web yang tersedia. \emph{Archie}, mesin pencari pertama, 
+mengumpulkan data dengan cara mencari daftar situs yang tersedia secara publik
+menggunakan protokol \emph{Telnet} dan memperbaharui nya secara berkala.
 
 % Arsitektur Google
-Mesin pencari membutuhkan serangkaian proses yang perlu dilakukan sebelum dapat menerima \emph{query} terkait informasi tertentu. Pada arsitektur \emph{Google},   terdapat beberapa komponen yang memiliki tugasnya tersendiri. Pertama, diperlukan proses \emph{crawling} untuk mendapatkan kumpulan \emph{web page}. Proses ini dilakukan oleh beberapa \emph{crawler} 
+Mesin pencari membutuhkan serangkaian proses yang perlu dilakukan sebelum dapat
+menerima \emph{query} terkait informasi tertentu. Pada arsitektur \emph{Google},
+terdapat beberapa komponen yang memiliki tugasnya tersendiri. Pertama,
+diperlukan proses \emph{crawling} untuk mendapatkan kumpulan \emph{web page}.
+Proses ini dilakukan oleh beberapa \emph{crawler}.
 
 % Arsitektur Lazuardy
-Upaya implementasi dari arsitektur Google telah dilakukan oleh Lazuardy Khatulistiwa dari Ilmu Komputer angkatan 18 Universitas Negeri Jakarta. Arsitektur yang sudah dibuat saat ini terdiri dari \emph{crawler} yang mencari data dari internet, \emph{MySQL} sebagai tempat penyimpanan, \emph{PageRank} sebagai metode skoring URL yang telah terkumpul, dan \emph{TF-IDF} sebagai metode skoring per kata.
+Upaya implementasi ulang arsitektur Google telah dilakukan oleh Lazuardy
+Khatulistiwa dari Ilmu Komputer angkatan 18 Universitas Negeri Jakarta.
+Arsitektur yang ada saat ini dimulai dari \emph{crawler} yang bertugas
+mengumpulkan halaman web berdasarkan \emph{entrypoint} tertentu. Halaman web
+tersebut kemudian di ekstrak dan dikumpulkan daftar kata yang termuat pada
+halaman web tersebut serta \emph{outgoing link} yang merujuk kepada halaman web
+lain. Kedua data tersebut kemudian disimpan pada database	\emph{MySQL}.
+
+Data yang tersimpan pada database selanjutnya di proses oleh modul
+\emph{PageRank}. Modul \emph{PageRank} menghitung peringkat suatu halaman web
+berdasarkan seberapa banyak halaman web lain yang merujuk kepada halaman web
+tersebut. Setelah kalkulasi peringkat halaman, data akan diolah oleh modul
+\emph{TF-IDF}. Modul \emph{TF-IDF} akan menghitung bobot kata pada dokumen
+berdasarkan frekuensi kemunculan kata tersebut dalam suatu dokumen tertentu dan
+jumlah dokumen yang mengandung kata tersebut.
 
 % Kekurangan dari arsitektur existing terutama pada bagian indexing
-Hasil riset yang telah dilakukan oleh Lazuardy masih memiliki banyak kekurangan, dan implementasinya juga cukup berbeda dibandingkan dengan arsitektur milik Google. Terdapat banyak komponen dari arsitektur Google yang belum diketahui detailnya, salah satunya adalah terkait \emph{indexing}.
+Hasil riset yang telah dilakukan oleh Lazuardy masih memiliki kekurangan, dan
+implementasinya juga cukup berbeda dibandingkan dengan arsitektur milik Google.
+Terdapat banyak komponen dari arsitektur Google yang belum diketahui detailnya,
+salah satunya adalah terkait \emph{indexing}.
+
+% Penjelasan terkait indexing
+\emph{Indexing} adalah suatu proses pemetaan \emph{record} pada database dengan
+tujuan mempercepat proses pengambilan \emph{record} dari database. Proses
+\emph{indexing} akan menghasilkan \emph{index}, yaitu representasi data yang
+merujuk pada lokasi data yang lebih lengkap pada database. Konsep \emph{index}
+disini hampir sama dengan index yang biasa ditemukan di bagian belakang buku.
+
+Representasi data oleh \emph{index} memiliki tingkat akurasi lokasi data
+(\emph{granularity}) yang dapat diatur, seperti suatu frase dalam suatu
+paragraf, atau unit data yang lebih kecil seperti satu kata tertentu saja.
+Pemilihan tingkat \emph{granularity} dapat mempengaruhi performa dan akurasi
+dari proses pengambilan data. Sebagai contoh, penggunaan \emph{synonym ring}
+yang dapat melakukan pengelompokan kata yang bermakna sama seperti
+\emph{WordNet} dapat memberikan hasil yang lebih baik dibandingkan dengan hanya
+menggunakan potongan kata biasa~~\cite{gonzalo1998wordnet}.
+
+% Prinsip kerja
+Terdapat berbagai implementasi \emph{index} yang disesuaikan dengan jenis data
+yang disimpan pada database. Pada kasus yang melibatkan teks, jenis yang paling
+umum digunakan adalah \emph{inverted file index}. \emph{Inverted file index}
+adalah daftar yang memuat kata dan posisinya dalam dokumen yang diurutkan
+berdasarkan kata.  Untuk mendapatkan daftar kata pada dokumen, dibutuhkan
+\emph{lexicon} yang memuat seluruh kata yang muncul pada database
+~\cite{hersh2001gigabytes}.
 
 % Google menggunakan algoritma indexing sendiri.
+Saat ini implementasi ulang proses \emph{indexing} yang tepat untuk kebutuhan
+mesin pencari sulit dilakukan karena detail dari arsitektur mesin pencari yang
+bersifat tertutup. Google menggunakan implementasi \emph{filesystem} sendiri
+yang sudah dioptimalkan baik performa maupun penggunaan \emph{storage}-nya
+untuk kebutuhan mesin pencari.
 
 % Jelaskan bahwa pada penelitian lazuardy baru PageRank dan TFIDF saja, sehingga nilai W nya belum jadi
 % (masih ada beberapa metode yang perlu digabungkan untuk mendapatkan nilai dari W)
-%
+Arsitektur yang dibuat saat ini nantinya akan menggabungkan beberapa algoritma
+pemeringkatan untuk mendapatkan skor \emph{query ranking}, dengan rumus:
+
+\begin{equation}
+	QR = \beta{}_1 \cdot{} QR_1 + \cdots{} + \beta{}_N \cdot{} QR_N
+\end{equation}
+
+
 % Tanyakan maksud dari indexing mengkapsulasi QR
+% Indexing nantinya tetap akan berpengaruh kepada hasil ranking
 % Rumuns pencarian dokumen
-%
-
-\emph{Archie} hanya menyediakan nama situs saja dalam daftar yang telah dibuat, sedangkan kontennya tidak ada. Pada tahun berikutnya mulai bermunculan mesin pencari baru. \emph{Aliweb} muncul pada tahun 1993, mesin pencari ini memberi kesempatan penggunanya untuk mengunggah halaman situs yang ingin terindeks di dunia maya, lengkap dengan deskripsi dari halaman tersebut. Kemudian, muncul \emph{Altavista} sebagai salah satu raksasa internet kala itu. \emph{Altavista} menyediakan fasilitas \emph{unlimited bandwith}, teknik dan sistem algoritmanya juga sudah lebih maju. Sembilan tahun setelahnya, muncul \emph{Yahoo}. \emph{Yahoo} menyediakan data dari berbagai situs yang sudah banyak dikenal orang. Para pemilik dan pengelola situs dapat menambahkan informasi yang dimiliki secara gratis, tetapi untuk fitur yang lengkap ada biaya yang harus dibayar. Perusahaan Yahoo kurang aktif dalam mengembangkan mesin pencarian mereka dan kurang bisa memuaskan para pengguna internet~\cite{seymour2011history}.
-
-Mesin pencari yang saat ini masih populer yaitu \emph{Google}. \emph{Google} diluncurkan pada tahun 1998, sistem yang dikembangkan \emph{Google} relatif berbeda dengan para pendahulunya. \emph{Google} menggunakan sistem \emph{BackRub}, sistem ini mengandalkan \emph{backlink} sebagai alat pemeringkat. \emph{Google} membuat \emph{ranking} setiap halaman situs berdasarkan seberapa banyak penyebutan situs tersebut di situs-situs lain~\cite{brin1998can}. Selain \emph{Google}, mesin pencari yang masih populer saat ini yaitu \emph{Bing}. \emph{Bing} muncul di pertengahan 2009. Di Amerika Serikat, \emph{Bing} termasuk mesin pencari yang disukai karena memang ada sejumlah fitur yang cocok bagi masyarakat Amerika. Namun, di luar Amerika, \emph{Bing} kurang populer dan masih kalah dari \emph{Google}~\cite{seymour2011history}.
-
-\begin{table}[H]
-	\centering{}
-	\caption{Penggunaan \emph{global search engine} Augustus 2020~\cite{netmarketshare}}\label{searchengine_net}
-	\begin{tabular}{c c}
-		\toprule
-		\textbf{Search engine} & \textbf{Global share (\%)} \\
-		\midrule
-		Google & 83.46 \\
-		\midrule
-		Baidu & 7.35 \\
-		\midrule
-		Bing & 6.15 \\
-		\midrule
-		Yahoo! & 1.42 \\
-		\midrule
-		Yandex & 0.87 \\
-		\midrule
-		DuckDuckGo & 0.31 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-\emph{Apple} adalah perusahaan yang saat ini menggunakan \emph{Google} sebagai mesin pencarinya. Selama beberapa tahun ini \emph{Google} membayar \emph{Apple} lebih dari satu miliar dolar untuk tetap menjadi mesin pencari utama di \emph{safari} untuk \emph{iOS}, \emph{iPadOS}, dan \emph{macOS}. \emph{Apple} sudah membuat \emph{web crawler} bernama \emph{Applebot} untuk \emph{search engine Apple} dan kemungkinan \emph{search engine} tersebut akan rilis di tahun ini~\cite{jonhenshaw_2020}.
-
-Fungsi dari mesin pencari selain mencari informasi adalah sebagai media pemasaran. Bertambahnya jumlah pengguna setiap detiknya membuat mesin pencari menjadi media pemasaran modern saat ini. Pengguna dapat mencari apa saja melalui mesin pencari, termasuk barang-barang yang ingin mereka beli. Mesin pencari membuat pencarian informasi semakin mudah. Pengguna yang sangat banyak membuat mesin pencari menjadi peluang tersendiri untuk memasarkan produk atau jasa bagi pemilik usaha atau perusahaan.
-
-\emph{Google} memasangkan iklan pada mesin pencarinya untuk mendapatkan keuntungan, layanan iklan ini bernama \emph{Adwords}. \emph{Adwords} memungkinkan pengiklan menjangkau pengguna \emph{online} dengan beriklan di platform \emph{Google}. Jika mencari sebuah informasi suatu barang, maka beberapa baris hasil penelusuran teratas yang disematkan dengan tulisan “Ad” akan terlihat. Informasi tersebut dipasang oleh pengiklan yang menggunakan fitur \emph{Adword Google}.
-
-\emph{Google} pun juga mendapatkan banyak data melalui mesin pencariannya. Selain itu, \emph{Google} juga membuat layanan lain seperti \emph{Gmail}, \emph{YouTube}, \emph{Search}, \emph{Drive}, \emph{Maps}, dan \emph{PlayStore}. Setiap layanan memiliki fungsi tersendiri untuk membantu aktivitas masyarakat. Dan dari setiap layanan \emph{Google} terdapat data-data pengguna yang dapat dipakai untuk keperluan lainnya.
-
-%masukan kelebihan kekurangan web crawler sebelumnya
-
-\emph{Web crawler} merupakan \emph{software} yang bekerja otomatis untuk menjelajahi \emph{World Wide Web} secara terorganisir. Kaur\cite{kaur2020simhar} dalam jurnalnya, telah membuat \emph{web crawler} dengan menggunakan \emph{focused crawler}. \emph{Focused web crawler} dapat memberikan hasil halaman relevan yang maksimum. Komponen pada \emph{focused web crawler} hampir sama dengan \emph{web crawler} pada umumnya, yaitu:
-
-%membahas kelebihan dan kekurangan crawler SIMHAR
-
-Proposal ini dikerjakan bersama dengan Savira Rahmayanti dari Ilmu Komputer angkatan 2015 Universitas Negeri Jakarta, akan mengembangkan \emph{server based search engine} yang bersifat \emph{open source} dan menjelaskan seperti apa arsitektur mesin pencari tersebut. Penulis mendapatkan bagian untuk mengimplementasi \emph{web crawling} pada \emph{search engine}, sedangkan Savira fokus untuk mengerjakan bagian \emph{searching} dan \emph{indexing}.
-
-Pada proposal ini tidak mengimplementasikan apa yang telah dikembangkan oleh Sawroop Kaur~\cite{kaur2020simhar}, karena \emph{web crawler} tersebut sudah terlalu rumit. Tetapi proposal ini akan mengembangkan \emph{web crawler} dasar yang merujuk pada awal perkembangan \emph{search engine Google}~\cite{brin1998anatomy} dan desain web crawler Carlos Castillo~\cite{castillo2005effective}. Penlitian ini akan menjadi dasar pada penelitian \emph{search engine} berikutnya.
-
-Crawler sangat dibutuhkan \emph{search engine} untuk dapat mencari informasi dengan lebih efisien. Proposal ini juga untuk memperdalam ilmu mengenai \emph{information retrieval} khususnya \emph{web crawling}. Oleh karena itu, perlu dibuat desain perancangan \emph{web crawler} pada \emph{search engine}. Dan ini tertuang pada penelitian yang berjudul \textbf{“Desain Perancangan \emph{Crawler} Sebagai Pendukung Pada \emph{Search Engine}”}.
+% Hasil W sudah ada
+% Tutup penjelasan dengan menjelaskan langkah Google hingga sebelum proses
+% ranking
 
 
+% Crawler sangat dibutuhkan \emph{search engine} untuk dapat mencari informasi dengan lebih efisien. Proposal ini juga untuk memperdalam ilmu mengenai \emph{information retrieval} khususnya \emph{web crawling}. Oleh karena itu, perlu dibuat desain perancangan \emph{web crawler} pada \emph{search engine}. Dan ini tertuang pada penelitian yang berjudul \textbf{“Desain Perancangan \emph{Crawler} Sebagai Pendukung Pada \emph{Search Engine}”}.
 
 
 \section{Rumusan Masalah}
-Berdasarkan uraian pada latar belakang yang di utarakan di atas, maka perumusan masalah pada penelitian ini adalah “Bagaimana cara mendesain perancangan \emph{crawler} sebagai pendukung pada \emph{search engine}?”
+Berdasarkan uraian pada latar belakang yang di utarakan di atas, maka perumusan
+masalah pada penelitian ini adalah ``Bagaimana cara mendesain perancangan
+\emph{crawler} sebagai pendukung pada \emph{search engine}?``
 
 \section{Pembatasan Masalah}
-Pembatasan masalah pada penelitian ini adalah pembuatan sebagian arsitektur \emph{search engine} yaitu \emph{crawling}. Algoritma crawler yang akan dibuat mengacu pada model algoritma \emph{Google} awal.
+Pembatasan masalah pada penelitian ini adalah pembuatan sebagian arsitektur
+\emph{search engine} yaitu \emph{crawling}. Algoritma crawler yang akan dibuat
+mengacu pada model algoritma \emph{Google} awal.
 
 \section{Tujuan Penelitian}
 \begin{enumerate}
-	\item Membuat \emph{crawler} yang dipakai untuk kebutuhan \emph{search engine}.
-	\item Untuk mengetahui arsitektur \emph{search engine}.
-	\item Untuk mempelajari cara kerja \emph{crawling}.
+	\item Memahami arsitektur mesin pencari.
+	\item Memahami cara kerja proses \emph{indexing}.
+	\item Membuat implementasi \emph{indexing} untuk memenuhi kebutuhan mesin
+		pencari.
 \end{enumerate}
 
 \section{Manfaat Penelitian}
 \begin{enumerate}
 	\item Bagi penulis
 		
-	Menambah pengetahuan dibidang \emph{information retrieval} khususnya mengenai \emph{search engine} dan \emph{crawling}, mengasah kemampuan \emph{programming}, dan memperoleh gelar sarjana dibidang Ilmu Komputer. Selain itu, penulisan ini juga merupakan media bagi penulis untuk mengaplikasikan ilmu yang didapat di kampus ke kehidupan masyarakat.
+	Menambah pengetahuan dibidang \emph{information retrieval} khususnya mengenai
+		\emph{search engine} dan \emph{crawling}, mengasah kemampuan
+		\emph{programming}, dan memperoleh gelar sarjana dibidang Ilmu Komputer.
+		Selain itu, penulisan ini juga merupakan media bagi penulis untuk
+		mengaplikasikan ilmu yang didapat di kampus ke kehidupan masyarakat.
 		
 	\item Bagi Universitas Negeri Jakarta 
-	 	
-	Menjadi pertimbangan dan evaluasi akademik khususnya Program Studi Ilmu Komputer dalam penyusunan skripsi sehingga dapat meningkatkan kualitas akademik di program studi Ilmu Komputer Universitas Negeri Jakarta serta meningkatkan kualitas lulusannya.
-	 			
+	
+	Menjadi pertimbangan dan evaluasi akademik khususnya Program Studi Ilmu
+		Komputer dalam penyusunan skripsi sehingga dapat meningkatkan kualitas
+		akademik di program studi Ilmu Komputer Universitas Negeri Jakarta serta
+		meningkatkan kualitas lulusannya.
+			
 \end{enumerate}
-
 
 % Baris ini digunakan untuk membantu dalam melakukan sitasi
 % Karena diapit dengan comment, maka baris ini akan diabaikan
