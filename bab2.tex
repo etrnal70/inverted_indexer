@@ -6,109 +6,446 @@
 
 \chapter{KAJIAN PUSTAKA} 
 
-\section{Definisi \emph{Search Engine}}
+% \section{Arsitektur \emph{Search Engine}}
 
-\emph{Search engine} merupakan program yang memungkinkan pengguna untuk mengajukan pertanyaan atau menggunakan kata kunci untuk membantu mencari informasi di web~\cite{william2001using}. \emph{Search engine} pada dasarnya merupakan sebuah halaman web, tetapi perannya berfokus untuk mengumpulkan dan mengorganisir berbagai informasi di internet.
+\section{Proses \emph{Indexing}}
 
-\section{Sejarah \emph{Search Engine}}
+\emph{Indexing} adalah proses pemetaan seluruh data pada \emph{database}.
+Proses dimulai dengan mengambil data mentah dari \emph{repository}, yaitu tempat
+penampungan data yang telah dikumpulkan oleh \emph{crawler}. Data tersebut
+kemudian akan dipetakan sesuai dengan struktur index yang digunakan. Hasil dari
+proses indexing adalah sebuah daftar \emph{index}, yang memiliki cara kerja yang
+serupa dengan index yang biasa ditemui pada bagian belakang sebuah buku. Index
+adalah suatu representasi data yang merujuk kepada lokasi data yang lebih
+lengkap di dalam database.
 
-Mesin pencari pertama bernama \emph{Archie} atau disebut "\emph{archive}" tanpa menyebut huruf "v" yang dibuat 1990. Alan Emtage, Bill Heelan, dan J.Peter Deutsch merupakan mahasiswa ilmu komputer Universitas McGill di Montreal Kanada, mereka bersama-sama membuat mesin pencari ini. Database \emph{Archie} terdiri dari direktori file yang berisi ratusan sistem. \emph{Archie} tidak dapat mengindeks isi konten dari sebuah situs. Melainkan, \emph{Archie} secara berkala menjangkau semua situs \emph{File Transfer Protocol} (FTP) yang tersedia, kemudian membuat daftar-daftar file dan membuat indeks yang dapat dicari. Perintah untuk mencari di \emph{Archie} menggunakan perintah \emph{UNIX}, dan dibutuhkan pengetahuan tentang \emph{UNIX} untuk menggunakannya secara maksimal \cite{seymour2011history}.
+Index merupakan komponen penting dalam suatu arsitektur mesin pencari.
+Penggunaan index memberikan pengaruh signifikan dalam proses penerimaan data
+dari database karena dapat mengurangi waktu akses \emph{storage}. Hal ini
+sejalan dengan pola penggunaan mesin pencari, dimana mayoritas operasi yang
+dilakukan adalah memberikan informasi berdasarkan \emph{query} dari pengguna.
+Selain itu, representasi index tertentu juga dapat mempengaruhi pengolahan
+\emph{query}, penggunaan ruang pada media penyimpanan dan akurasi dari hasil
+\emph{query} tersebut.
 
-Tahun 1991 muncul aplikasi bernama \emph{Gopher}. Kemunculan \emph{Gopher} membawa dua program pencarian bernama \emph{Veronica} dan \emph{Jughead}. Sama seperti \emph{Archie}, \emph{Veronica} dan \emph{Jughead} mencari nama file dan judul yang tersimpan dalam sistem indeks \emph{Gopher}. \emph{Gopher} dibuat oleh Mark McCahill pada tahun 1991 di Universitas Minnesota. \emph{Gopher} dirancang untuk mendistribusikan, mencari, dan mengambil dokumen melalui Internet. \emph{Gopher} menawarkan beberapa fitur yang tidak didukung oleh Web dan menerapkan hierarki yang lebih kuat pada informasi yang disimpan di dalamnya. \emph{Gopher} adalah sistem protokol, yang mendahului \emph{World Wide Web}, memungkinkan \emph{file} teks berbasis server diatur secara hierarki dan mudah dilihat oleh pengguna yang mengakses server menggunakan Aplikasi \emph{Gopher} di komputer jarak jauh. Awalnya Browser \emph{Gopher} hanya dapat menampilkan \emph{file} berbasis teks, kemudian terdapat pengembangan seperti \emph{Hyper Gopher} yang mampu menangani format grafik sederhana \cite{seymour2011history}.
-
-Setelah mesin pencari pertama muncul di tahun 1990, tiga tahun berikutnya di tahun 1993 pada bulan November, muncul mesin pencari bernama \emph{Aliweb}. Mesin pencari kedua ini tidak menggunakan \emph{web robot}, dan mengizinkan pengguna untuk mengirimkan lokasi file indeks di situs mereka yang memungkinkan mesin pencari untuk memasukkan Halaman Web dan menambahkan deskripsi halaman dan kata kunci yang ditulis pengguna. \emph{Aliweb} tidak secara otomatis mengindeks situs, Jika pengguna ingin sebuah situs terindeks pada mesin pencari ini, maka pengguna harus menulis file khusus dan mendaftarkannya ke \emph{Aliweb Server} \cite{seymour2011history}.
-
-\emph{Jumpstation} yang dirilis bulan Desember tahun 1993 menggunakan \emph{web robot} untuk mencari halaman-halaman web dan untuk membangun indeksnya. \emph{Jumpstation} adalah tool pertama yang menggunakan tiga fitur penting dari \emph{web search engine}, yaitu \emph{crawling}, \emph{indexing}, dan \emph{searching}. Karena sumberdaya pada platformnya yang terbatas, pengindeksan dan pencariannya dibatasi pada judul dan \emph{headings} yang ditemukan di halaman web oleh \emph{crawler} \cite{seymour2011history}.
-
-\emph{Search engine} pertama yang menyediakan pencarian teks lengkap adalah \emph{WebCrawler}. \emph{Search engine} berbasis \emph{crawler} ini muncul pada tanggal 20 April 1994 dan dibuat oleh Brian Pinkerton di Universitas Washington \cite{seymour2011history}. Para pengguna dapat mencari setiap kata yang terdapat pada halaman web, dan ini menjadi standar utama pada search engine sejak saat itu.
-
-Banyak \emph{search engine} yang kemudian muncul dan bersaing untuk memperebutkan popularitas. Beberapa diantaranya \emph{Magelan search engine}, \emph{Excite}, \emph{Infoseek}, \emph{Inktomi}, \emph{Northern Light}, dan \emph{Altavista}. \emph{Yahoo!} adalah salah satu cara yang paling populer untuk menemukan halaman web yang ingin dicari, tetapi fungsi pencariannya beroperasi pada direktori web \emph{Yahoo!}, bukan salinan teks lengkap dari halaman web.
-
-\emph{AltaVista} pernah menjadi salah satu \emph{search engine} paling populer, muncul pada tahun 1995. Louis Monier yang memegang \emph{crawler} dan Michael Burrows yang menulis pengindeksnya. \emph{AltaVista} memiliki server komputasi yang paling kuat, dan membuat \emph{AltaVista} menjadi \emph{search engine} tercepat dan dapat menangani jutaan hit dalam sehari. Satu fitur pada \emph{AltaVista} yang menarik dibandingkan \emph{search engine} sebelumnya, yaitu pengguna dapat mengetikkan frasa atau pertanyaan, dan mendapatkan respon yang sesuai. Tetapi popularitas \emph{AltaVista} berkurang dengan munculnya \emph{Google}.
-
-\emph{Ask Jeeves} (\emph{Ask}) adalah \emph{searh engine} yang didirikan tahun 1996 oleh Garrett Gruener dan David Warthen di Barkeley, Calivornia \cite{seymour2011history}. Ide awal kemunculan \emph{Ask} adalah untuk memudahkan pengguna mendapatkan jawaban atas pertanyaan yang diajukan dalam bahasa sehari-hari. \emph{Ask.com} saat ini masih tersedia, dengan fitur tambahan yaitu dapat menerima pertanyaan matematika, kamus, dan pertanyaan konversi.
-
-Perusahaan \emph{Netscape} di tahun 1996 ingin memberikan kesepakatan ekslusif kepada satu \emph{search engine} untuk menjadi \emph{search engine} utama di \emph{web browser Netscape}. Keputusan yang di ambil \emph{Netscape} saat itu terdapat lima \emph{search engine} utama, dan setiap \emph{search engine} mendapat bayaran lima juta dolar per tahun. Lima \emph{search engine} tersebut adalah \emph{Yahoo!}, \emph{Magellan}, \emph{Lycos}, \emph{Infoseek}, dan \emph{Excite} \cite{seymour2011history}.
-
-\emph{Google} resmi muncul pada tahun 1998 oleh Larry Page dan Sergey Brin, mahasiswa Universitas Stanford di California. Untuk meningkatkan hasil kualitas penelusuran, Brin dan Page memperkenalkan PageRank, sebuah metode untuk menghitung peringkat setiap halaman web \cite{page1999pagerank}. \emph{Google search engine} telah meminimalisir hasil penelusuran sampah di hasil penelusuran teratas, memudahkan pengguna untuk mencari informasi yang ada di web. Mulai sekitar tahun 2000, \emph{Google search engine} menjadi terkenal hingga saat ini. 
-
-\emph{Yahoo!} menggunakan \emph{Google search} hingga tahun 2004, dan setelah itu membangun \emph{search engine} sendiri. Sebelumnya, \emph{Yahoo!} membeli \emph{Overture} yang memiliki \emph{search engine AlthaWeb} dan \emph{AltaVista}, walaupun memiliki banyak \emph{search engine}, \emph{Yahoo!} tidak menggunakannya untuk situs web utama \emph{yahoo.com}, menggunakan \emph{Google search} untuk hasil penelusurannya. \emph{Yahoo!} \emph{search} menggabungkan kemampuan semua perusahaan \emph{search engine} yang mereka peroleh, dan dengan penelitian yang ada, kemudian menggabungkannya kedalam satu \emph{search engine}.
-
-\emph{Microsoft} pertama kali meluncurkan \emph{MSN search} tahun 1998, menggunakan hasil pencarian dari \emph{Inktomi} \cite{seymour2011history}. Pada tahun 2004, \emph{Microsoft} mulai transisi ke teknologi \emph{search engine} sendiri, yang didukung oleh \emph{web crawler} milik \emph{Microsoft}, bernama \emph{msnbot}. \emph{Search engine Microsoft}, yaitu \emph{Bing}, resmi diluncurkan pada tanggal 1 Juni 2009. Kemudian satu bulan lebih setelahnya tanggal 29 Juli 2009, \emph{Yahoo!} dan \emph{Microsoft} menyelesaikan kesepakatan, \emph{Yahoo!} search akan didukung oleh teknologi \emph{Microsoft Bing}.
-
-\section{Arsitektur \emph{Search Engine}}
-
-\emph{Search engine} bekerja dengan cara menyimpan semua informasi dari berbagai halaman web. Halaman-halaman tersebut diambil menggunakan program khusus yang disebut \emph{Web Crawler}, isi dari setiap halaman kemudian dianalisis untuk menentukan bagaimana halaman tersebut akan diindeks. Gambar \ref{gambar:google_architecture} merupakan \emph{High Level Google Architecture} \cite{brin1998anatomy}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[keepaspectratio, width=10cm]{gambar/google_architecture}
-	\caption{\emph{High Level Google Architecture} \cite{brin1998anatomy}}
-	\label{gambar:google_architecture}
-\end{figure}
-
-\emph{Web crawling} (mengunduh halaman web) dilakukan oleh beberapa \emph{crawler} yang terdistribusi. Terdapat \emph{URL server} yang mengirimkan daftar \emph{URL} untuk diambil ke \emph{crawler}. Halaman web yang telah diambil kemudian dikirim ke \emph{store server} dan \emph{store server} menyimpan halaman web ke dalam \emph{Repository}. Setiap halaman web memiliki nomor ID yang disebut \emph{docID}, ditetapkan setiap kali \emph{URL} baru diurai dari halaman web. Pengindeksan dilakukan oleh \emph{indexer} dan \emph{sorter}. Fungsi dari \emph{indexer} yaitu: membaca repositori, membuka kompresi dokumen, dan mengurainya. Setiap dokumen kemudian diubah menjadi sekumpulan kejadian kata yang disebut \emph{hits}. \emph{Hits} berfungsi untuk merekam kata, menyimpan posisi dalam dokumen, menyimpan perkiraan ukuran \emph{font} dan kapitalisasi. \emph{Indexer} mendistribusikan \emph{hits} ke dalam satu set "\emph{barrels}", membuat \emph{forward index} yang diurutkan sebagian. \emph{Indexer} melakukan fungsi penting lainnya, yaitu mengurai semua \emph{link} di setiap halaman web dan menyimpan informasi penting ke dalam \emph{anchors file}. \emph{File} ini berisi informasi yang cukup untuk menentukan darimana dan kemana setiap \emph{link point}, dan berisi teks dari setiap \emph{link}.
-
-\emph{URL resolver} membaca \emph{anchors file} dan mengubah \emph{URL} relatif menjadi \emph{URL} absolut, serta merubahnya menjadi \emph{docID}. Kemudian menempatkan \emph{anchors text} ke \emph{forward index}, terkait dengan \emph{docID} yang ditunjukkan oleh \emph{anchor}. Dan juga menghasilkan \emph{database of links} yang merupakan pasangan \emph{docID}. \emph{Database link} digunakan untuk menghitung \emph{PageRank} untuk semua dokumen.
-
-\emph{Sorter} mengambil \emph{barrels} yang telah diurutkan berdasarkan \emph{docID} dan menggunakan \emph{barrels} dengan \emph{wordID} untuk menghasilkan \emph{inverted index}. Hal ini dilakukan di dalam sebuah tempat, sehingga sedikit ruang sementara yang dibutuhkan untuk operasi ini. \emph{Sorter} juga menghasilkan daftar \emph{wordID} dan \emph{offset} ke dalam \emph{inverted index}. Sebuah program bernama \emph{DumpLexicon} mengambil daftar \emph{wordID} bersama dengan \emph{leksicon} yang dihasilkan oleh \emph{indexer} dan menghasilkan \emph{leksicon} baru untuk digunakan oleh \emph{searcher}. \emph{Searcher} dijalankan oleh \emph{web server} dan menggunakan \emph{leksicon} yang dibuat oleh \emph{DumpLexicon} bersama dengan \emph{inverted index} dan \emph{PageRank} untuk menjawab pertanyaan.
-
-Pada tahun 1998, \emph{Google} menjalankan proses tersebut membutuhkan waktu kurang lebih 9 hari untuk menngunduh data dari 26 juta halaman web. Jika dihitung dalam detik, maka membutuhkan waktu rata-rata sekitar 33,44 halaman per detik. Proses ini selalu diulang untuk mendapat perubahan informasi atau data yang ada di seluruh halaman web. Diimplementasikan hampir seluruhnya menggunakan \emph{C} atau \emph{C++}, tetapi sebagian lainnya, seperti \emph{URL server} dan \emph{crawler} diimplementasikan menggunakan \emph{python}.
-
-\section{\emph{Web Crawler}}
-
-\emph{Crawler} adalah program yang mengambil halaman Web, biasanya untuk digunakan oleh mesin pencari \cite{pinkerton1994finding}. Secara kasar, \emph{crawler} memulai dengan \emph{URL} untuk halaman awal $P_{0}$. Kemudian \emph{Crawler} mengambil $P_{0}$, mengekstrak semua \emph{URL} yang terdapat di dalam $P_{0}$, dan menambahkannya ke antrian \emph{URL} untuk dipindai. Kemudian \emph{crawler} mengambil \emph{URL} dari antrian (dalam urutan tertentu), dan mengulangi prosesnya \cite{cho1998efficient}.
-
-\subsection{\emph{Importance Metrics}}
-
-Tidak semua halaman memiliki minat yang sama dengan \emph{crawler's client}. Misalnya, jika \emph{client} sedang membangun database khusus tentang topik tertentu, maka halaman yang merujuk ke topik tersebut lebih penting, dan harus dikunjungi sesegera mungkin. Demikian pula, \emph{search engine} dapat menggunakan jumlah \emph{URL} Web yang mengarah ke sebuah halaman, disebut \emph{backlink count}, untuk menentukan peringkat hasil \emph{query} pengguna.
-
-Sebuah \emph{Web page} $P$, dapat ditentukan \emph{importance of the page} $I(P)$ dengan salah satu cara berikut (Cara tersebut dapat dikombinasikan satu sama lain):
+% TODO Verif ke pak Eka apakah ini masih perlu atau tidak
+% Terkait apakah database yang dibutuhkan adalah untuk full-text
+Database yang digunakan oleh mesin pencari adalah database yang dirancang
+untuk kebutuhan penyimpanan teks secara penuh. Untuk keperluan tersebut,
+setidaknya terdapat tiga syarat yang perlu dipenuhi ketika ingin menentukan
+representasi index.
 
 \begin{enumerate}
-	\item \emph{Similarity to a Driving Query $Q$}. Query $Q$ mendorong proses \emph{crawling}, dan $I(P)$ didefinisikan sebagai \emph{textual similarity} antara $P$ dan $Q$. \emph{Similarity} telah dipelajari dengan baik di komunitas \emph{Information Retrieval} (IR) \cite{salton1989automatic}. \emph{Importance metrics} ini disebut $IS(P)$. Untuk menghitung \emph{similarities} dapat dilihat pada setiap dokumen ($P$ atau $Q$) sebagai vektor berdimensi-$m$ $(w_{1}, ..., w_{n})$. Istilah $w_{i}$ dalam vektor ini merepresentasikan pentingnya kata ke-$i$ dalam kosakata. Salah satu cara umum untuk menghitung signifikansi $w_{i}$ adalah mengalikan berapa kali kata ke-$i$ muncul dalam dokumen dengan \emph{inverse document frequency} (\emph{idf}) dari kata ke-$i$. Faktor \emph{idf} adalah satu dibagi dengan berapa kali kata tersebut muncul di seluruh "\emph{document
-	collection}". Persamaan antara $P$ dan $Q$ kemudian dapat didefinisikan sebagai \emph{inner product} dari vektor $P$ dan $Q$.
+  \item{Memungkinkan untuk mendapatkan data berdasarkan suatu query}
 
-	Jika menggunakan istilah \emph{idf} dalam perhitungan \emph{similarity}, maka diperlukan informasi global untuk menghitung \emph{importance of a page}. Selama proses \emph{crawling}, Tidak dapat melihat seluruh \emph{colection}, dan harus memperkirakan faktor \emph{idf}. Perlu menggunakan $IS'(P)$ untuk mengacu pada estimasi \emph{importance of a page} $P$, yang berbeda dari \emph{importance of a page} sebenarnya $IS(P)$. Jika faktor \emph{idf} tidak digunakan, maka $IS'(P)$ = $IS(P)$.
-	
-	\item \emph{Backlink Count}. Nilai $I(P)$ adalah jumlah \emph{link} ke $P$ yang muncul di seluruh Web. \emph{Importance metrics} ini disebut $IB(P)$. Halaman $P$ yang dirujuk oleh banyak halaman lain, lebih penting daripada halaman yang jarang dirujuk. Di Web, \emph{Backlink Count} atau $IB(P)$ berguna untuk menentukan peringkat hasil \emph{query}, memberikan halaman \emph{end-users} yang lebih mungkin menjadi minat umum.
-	
-	Untuk mengevaluasi $IB(P)$ membutuhkan penghitungan \emph{backlink} di seluruh Web. \emph{Crawler} dapat memperkirakan nilainya dengan $IB'(P)$, yaitu jumlah \emph{link} ke $P$ yang sudah terlihat saat ini.
-	
-	\item \emph{PageRank}. $IB(P)$ memperlakukan semua \emph{link} secara setara. Karenanya, \emph{link} dari halaman utama \emph{Yahoo!} dihitung sama dengan \emph{link} dari halaman lain. Namun, karena halaman utama \emph{Yahoo!} lebih penting (memiliki jumlah $IB$ yang jauh lebih tinggi), masuk akal untuk menghargai tautan itu dengan lebih tinggi. \emph{PageRank backlink metric} atau disebut $IR(P)$, secara rekursif mendefinisikan \emph{importance of a page} sebagai jumlah yang terhitung dari \emph{backlink} ke halaman tersebut. \emph{Metric} ini terbukti sangat berguna dalam memberi peringkat hasil \emph{query} pengguna \cite{page1999pagerank}. $IR'(P)$ berfunsi untuk estimasi nilai $IR(P)$ saat hanya memiliki sebagian halaman yang tersedia.
-	
-	Secara lebih formal, jika halaman tidak memiliki \emph{outgoing link}, maka diasumsikan bahwa halaman tersebut memiliki \emph{outgoing link} ke setiap halaman Web. Selanjutnya, pertimbangkan halaman $P$ yang dirujuk oleh halaman $T_{1}, ..., T_{n}$. Misalkan $c_{i}$ adalah jumlah \emph{outlink} dari halaman $T_{i}$. Dan misalkan $d$ menjadi \emph{damping factor} (yang intuisinya diberikan di bawah). Kemudian, jumlah \emph{backlink} yang terhitung dari halaman $P$ dapat dilihat dari persamaan berikut:
-	
-	\begin{equation}
-	\label{eq_1}
-	IR(P) = (1-d) + d \left(\dfrac{IR(T_{1})}{c_{1}} + ... + \dfrac{IR(T_{n})}{c_{n}}\right)
-	\end{equation}
-	
-	Ini mengarah ke satu persamaan per halaman Web, dengan jumlah yang sama tidak diketahui. Persamaan dapat diselesaikan untuk nilai $IR$. Dihitung secara iteratif, dimulai dengan semua nilai $IR$ sama dengan 1. Pada setiap langkah, nilai $IR(P)$ baru dihitung dari nilai $IR(T_{i})$ lama (dengan menggunakan persamaan \ref{eq_1}), hingga nilainya didapat.
-	
-	Salah satu model intuitif untuk \emph{PageRank} adalah dengan membayangkan pengguna "menjelajahi" Web, mulai dari halaman mana pun, dan secara acak memilih link untuk diikuti dari halaman tersebut. Saat pengguna mencapai halaman yang tidak terdapat \emph{outlink}, pengguna akan menuju ke halaman acak. Juga, ketika pengguna berada di sebuah halaman, ada beberapa kemungkinan, $d$, bahwa halaman yang dikunjungi berikutnya akan benar-benar acak. Nilai $IR(P)$ yang dihitung di persamaan \ref{eq_1} memberikan probabilitas bahwa \emph{surfer} acaknya berada di $P$ pada waktu tertentu.
-	
-	\item \emph{Location Metric}. \emph{importance of a page $P$}, $IL(P)$ atau \emph{Location Metric} dari halaman $P$ berfungsi dari lokasinya, bukan isinya. Jika \emph{URL} $u$ mengarah ke $P$, maka $IL(P)$ adalah fungsi dari $u$. Misalnya, \emph{URL} yang diakhiri dengan "\emph{.com}" mungkin dianggap lebih berguna daripada \emph{URL} dengan akhiran lain, atau \emph{URL} yang berisi string "\emph{home}" mungkin lebih menarik daripada \emph{URL} lainnya. \emph{Location Metric} lain yang terkadang digunakan, menganggap \emph{URL} dengan garis miring (\emph{slash}) yang lebih sedikit, lebih berguna daripada \emph{URL} dengan garis miring lebih banyak. Semua contoh ini adalah \emph{local metric}, karena dapat dievaluasi hanya dengan melihat \emph{URL} $u$.
+  Dari suatu query pencarian, database harus dapat memberikan hasil yang dapat
+  memenuhi query tersebut. Pada konteks penerimaan data yang berbentuk teks,
+  konjungsi query sangat umum digunakan. Dalam kasus ini, index harus mampu
+  memberikan informasi apakah suatu \emph{record} mengandung kata tertentu, dan
+  secara langsung mempengaruhi penentuan granularitas index.
+
+  \item{Menambahkan \emph{record} baru secara efisien}
+
+  Database yang hanya menyimpan teks umumnya digunakan untuk keperluan
+  penyimpanan. Pada kasus mesin pencari, operasi yang sering dilakukan adalah
+  penulisan data dari \emph{crawler} ke database dan pembacaan data berdasarkan
+  query. Operasi untuk mengubah atau menghapus data jarang diperlukan, walaupun
+  operasi tersebut tetap perlu didukung.
+
+  \item{Memberikan skor terhadap hasil dari query yang bersifat `informal'}
+
+  Pada kasus mesin pencari, pengguna seringkali memberikan query yang bersifat
+  `informal', yaitu query yang tidak dapat dipenuhi seluruhnya oleh database.
+  Dalam hal ini, database perlu memberikan hasil yang paling mendekati
+  ekspektasi dari query tersebut dengan cara menyertakan nilai relevansi suatu
+  data terhadap query.
+
+  Mesin pencari setidaknya membutuhkan syarat pertama dan kedua untuk dipenuhi
+  oleh database agar dapat digunakan di dunia nyata.
+
 \end{enumerate}
 
-\subsection{Model \emph{Crawler}}
+\section{\emph{Repository}}
 
-Secara umum terdapat tiga model crawler yang dirancang agar \emph{crawler} dapat mengunjungi halaman $I(P)$ tinggi sebelum mengunjungi halaman yang berperingkat lebih rendah. Tentu saja, \emph{crawler} hanya akan memiliki nilai $I'(P)$ yang tersedia, jadi berdasarkan ini crawler harus menebak halaman $I(P)$ tinggi yang akan diambil selanjutnya.
+\emph{Repository} merupakan tempat penyimpanan seluruh kode HTML dari setiap
+halaman web yang telah di-\emph{crawl}. Setiap dokumen memiliki data tambahan
+yang disematkan kepadanya, yaitu nomor \emph{id} yang dibuatkan untuk dokumen
+tersebut, panjang dari dokumen, dan \emph{URL} dari dokumen tersebut. Seluruh
+data tersebut dikompres dengan library \emph{zlib} untuk mengurangi penggunaan
+ruang pada \emph{repository}.
 
-\textbf{Crawl \& Stop}. Pada model ini, crawler $C$ memulai halaman awalnya $P_{0}$ dan berhenti setelah mengunjungi halaman $K$. Pada titik ini crawler yang sempurna akan mengunjungi halaman $R_{1}, ..., R_{K}$, dengan $R_{1}$ adalah halaman dengan nilai kepentingan tertinggi, $R_{2}$ adalah halaman tertinggi berikutnya, dan seterusnya. Halaman $R_{1}$ sampai $R_{K}$ disebut sebagai \emph{hot pages}. Halaman $K$ yang dikunjungi oleh \emph{crawler} sebenarnya hanya akan berisi halaman $M$ dengan peringkat lebih tinggi dari atau sama dengan $I(R_{K})$. Didefinisikan kinerja \emph{crawler} $C$ menjadi $P_{CS}(C) = (M \cdot 100) / K$. Kinerja \emph{crawler} yang ideal tentu saja 100\%. Sebuah crawler yang entah bagaimana berhasil mengunjungi halaman secara acak akan memiliki kinerja $(K \cdot 100) / T$, dimana $T$ merupakan jumlah total halaman di Web.
+\section{Daftar URL}
 
-\textbf{Crawl \& Stop with Threshold}. Diasumsikan bahwa \emph{crawler} mengunjungi halaman $K$. Namun, sekarang diberi target kepentingan $G$, dan halaman mana pun dengan $I(P) \ge G$ dianggap \emph{hot}. Maka diasumsikan bahwa jumlah total \emph{hot pages} adalah $H$. Kinerja \emph{crawler}, $P_{ST}(C)$, adalah persentase dari $H$ \emph{hot pages} yang telah dikunjungi ketika \emph{crawler} berhenti. Jika $K < H$, maka \emph{crawler} yang ideal akan memiliki performa $(K \cdot 100) / H$. Jika $K \le H$, maka \emph{crawler} yang ideal memiliki performa 100\%. \emph{Crawler} acak murni yang mengunjungi kembali halaman diharapkan untuk mengunjungi $(H / T) \cdot K$ \emph{hot pages} saat berhenti. Jadi performanya adalah $(K \cdot 100) / T$.
+Ketika mengolah data dari \emph{repository}, terdapat langkah tambahan yang
+dilakukan jika menemui \emph{anchor text}. \emph{Anchor text} adalah teks berupa
+URL yang merujuk kepada dokumen lain. Setiap \emph{anchor text} yang ditemukan
+pada data dari \emph{repository} akan disimpan pada sebuah daftar URL\@. Daftar
+ini nantinya 
 
-\textbf{Limited Buffer Crawl}. Model ini mempertimbangkan dampak dari penyimpanan terbatas pada proses \emph{crawling}. Diasumsikan bahwa \emph{crawler} hanya dapat menyimpan halaman $B$ dalam \emph{buffer}. Jadi, setelah \emph{buffer} terisi, \emph{crawler} harus memutuskan halaman mana yang akan di-\emph{flush} untuk memberi ruang bagi halaman baru. \emph{Crawler} yang ideal dapat dengan mudah menjatuhkan halaman dengan nilai $I(P)$ terendah, tetapi \emph{crawler} yang sebenarnya harus menebak halaman mana dalam \emph{buffer} yang pada akhirnya akan memiliki nilai $I(P)$ yang rendah. \emph{Crawler} dibolehkan untuk mengunjungi total $T$ halaman, sama dengan jumlah total halaman Web. Pada akhir proses ini, persentase halaman \emph{buffer} $B$ yang \emph{hot} memberikan kinerja $P_{BC}(C)$. Performa \emph{crawler} ideal dan \emph{crawler} acak serupa dengan performa di kasus sebelumnya.
+\section{\emph{Document Index}}
+\emph{Document index} menyimpan beberapa informasi tambahan pada setiap dokumen.
+Setiap index akan memiliki nomor dokumen, status dokumen, alamat tempat dokumen
+tersimpan di \emph{repository}, dan \emph{checksum}. Apabila pada suatu dokumen
+telah dilakukan proses \emph{crawling}, maka akan disematkan data tambahan yang
+berisi sepasang informasi berupa URL dan judul dari dokumen tersebut. Jika
+belum melalui tahap \emph{crawling}, maka data tambahan tersebut hanya merujuk
+kepada URL yang terdapat pada daftar URL\@.
 
-\section{Arsitektur \emph{Web Crawler}}
+\section{Daftar Kosakata}
 
-\emph{Web crawler} adalah bagian utama dari \emph{search engine}. \emph{Crawler} harus memiliki strategi \emph{crawling} yang baik dan juga membutuhkan arsitektur yang sangat dioptimalkan. Desain sistem harus optimal agar dapat membangun sistem berkinerja tinggi yang dapat mengunduh ratusan juta halaman selama beberapa minggu. \emph{High level architecture of Web crawler} ditunjukkan pada Gambar \ref{gambar:architecture_webcrawler}, membutuhkan \emph{scheduler} dan \emph{multi-threader downloader}. Dua struktur data utama adalah \emph{Web page} (\emph{text}) dan \emph{URL queue}.
+Setiap hasil pengolahan data dari \emph{repository} akan memberikan daftar
+kosakata yang bersifat unik. Daftar kosakata tersebut kemudian akan digabungkan
+kedalam daftar kosakata yang menampung keseluruhan kosakata pada database yang
+telah melalui proses \emph{indexing}.
+
+Implementasi daftar kosakata ini terbagi menjadi dua bagian, yaitu daftar
+kosakata itu sendiri dan daftar \emph{pointer} yang merujuk kepada dokumen
+tempat kosakata itu berada. Selain itu, daftar kosakata dapat menyematkan
+informasi tambahan seperti jumlah dokumen tempat kosakata tersebut muncul.
+
+Untuk mencegah akses ke ruang penyimpanan yang berlebihan, salah satu syarat
+dasar dari implementasi index adalah daftar seluruh kosakata dapat dimuat dalam
+memori. Hal ini bertujuan untuk memastikan bahwa dalam situasi pencarian hasil
+dengan query boolean, hanya membutuhkan setidaknya satu kali akses ke ruang
+penyimpanan per kata.
+
+\section{\emph{Inverted Index}}
+
+\emph{Inverted index} merupakan jenis index yang memetakan potongan isi dari
+suatu dokumen atau koleksi dokumen terhadap lokasi aslinya di dokumen atau
+koleksi dokumen tersebut. Karena bentuk strukturnya, inverted index cocok
+digunakan untuk kebutuhan penerimaan data berdasarkan query seperti mesin
+pencari.
+
+% \subsection{Struktur \emph{Inverted File Index}}
+
+% Umumnya, implementasi dari inverted file index terdiri dari dua bagian, yaitu
+% suatu struktur pencarian yang berisi seluruh kata pada seluruh dokumen yang
+% telah di-\emph{index}, dan daftar dokumen yang telah di-\emph{index} beserta
+% informasi lebih dalam terkait keberadaan kata pada struktur pencarian tersebut.
+
+% Clarification
+% jangan gunakan istilah struktur pencarian, pecah menjadi kegunaaannya
+% masing-masing
+% \subsubsection{Struktur Pencarian}
+%
+% Struktur pencarian terdiri dari dua bagian, yaitu daftar kata yang telah di
+% index dan data tentang dokumen tempat kemunculan kata tersebut. Implementasi
+% dari inverted file index mengasumsikan jika perangkat memiliki cukup memori
+% untuk menampung seluruh struktur pencarian. Hal ini bertujuan untuk memastikan
+% bahwa pencarian hasil yang dapat memenuhi suatu query boolean hanya membutuhkan
+% setidaknya sekali akses ke ruang penyimpanan per kata.
+%
+% Akses terhadap ruang penyimpanan perlu dibatasi se minimal mungkin. Hal ini
+% berdasarkan contoh kasus penggunaan database untuk kebutuhan mesin pencari.
+% Karena jumlah data pada internet yang begitu banyak, proses pemetaan informasi
+% dari seluruh internet akan menghasilkan data yang berukuran sangat besar. Hal
+% ini akan menyebabkan proses baca ke ruang penyimpanan, walaupun hanya satu kali,
+% memakan waktu yang tidak sebentar.
+
+\subsection{Struktur Index}
+
+Representasi dari kemunculan suatu kata pada dokumen, atau biasa disebut sebagai
+\emph{hit}, memiliki beberapa data tertentu terkait kata yang dikandung. Setiap
+\emph{hit} merepresentasikan suatu kemunculan kata beserta data berikut:
+
+\begin{itemize}
+  \item{Lokasi kata dalam dokumen}
+  \item{Jenis \emph{font} yang digunakan}
+  \item{Informasi terkait penggunaan huruf kapital}
+\end{itemize}
+
+\emph{Hit} terbagi menjadi tiga jenis berdasarkan lokasinya dalam struktur
+halaman web. Yang pertama adalah \emph{fancy hit}, yaitu \emph{hit} yang berada
+didalam \emph{URL}, judul halaman, atau \emph{meta tag}. Yang kedua adalah
+\emph{anchor hit}, yaitu \emph{hit} yang khusus berada di dalam
+\emph{anchor text} yang merupakan URL yang merujuk kepada dokumen atau halaman
+lain. Yang ketiga adalah \emph{plain hit}, yaitu \emph{hit} yang berada diluar
+lingkup dari \emph{fancy hit}.
+
+Alokasi memori yang dibutuhkan untuk menyimpan sebuah \emph{hit} adalah 8 byte
+atau 16 bit. Penggunaan bit tersebut berbeda tergantung dari jenis \emph{hit},
+tetapi memiliki cara yang hampir sama dalam menggunakannya. 
+
+Bit pertama digunakan sebagai penanda untuk penggunaan huruf kapital.
+Selanjutnya, bit kedua hingga keempat digunakan sebagai penanda ukuran font yang
+digunakan. Ukuran font ini bersifat relatif terhadap seluruh kata dalam dokumen.
+Selain itu, nilai bit \emph{111} tidak digunakan sebagai ukuran penanda ukuran
+font, namun digunakan sebagai penanda untuk \emph{fancy hit}. Bit kelima hingga
+terakhir digunakan sebagai penanda posisi kata dalam dokumen. Karena
+keterbatasan bit, posisi yang memiliki nilai lebih dari 4095 akan dianggap
+bernilai 4096.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[keepaspectratio, width=12cm]{gambar/Arsitektur_Webcrawler}
-	\caption{\emph{High Level Architecture of Web Crawler}~\cite{castillo2005effective}}
-	\label{gambar:architecture_webcrawler}
+  \centering{}
+	\includegraphics[width=0.85\textwidth]{gambar/plain\-bit}
+  \caption{Penggunaan alokasi memori dari \emph{plain hit}}
 \end{figure}
 
+Pada penggunaan \emph{fancy hit}, alokasi bit untuk penanda posisi dibagi
+menjadi dua. Bit ke-9 hingga ke-12 digunakan sebagai penanda jenis dari
+\emph{fancy hit}, sementara bit ke-13 hingga terakhir tetap digunakan sebagai
+penanda posisi.
+
+\begin{figure}[H]
+  \centering{}
+	\includegraphics[width=0.85\textwidth]{gambar/fancy\-bit}
+  \caption{Penggunaan alokasi memori dari \emph{fancy hit}}
+\end{figure}
+
+Dari penggunaan \emph{fancy hit}, penggunaan \emph{anchor hit} membagi sisa
+delapan bit terakhir menjadi dua, yaitu empat bit awal sebagai penanda posisi
+dan empat bit terakhir sebagai nilai \emph{hash} dari dokumen dimana kata
+tersebut berada.
+
+\emph{Hit} dirangkai dengan menggunakan struktur \emph{linked list} agar
+penambahan hit lebih mudah dilakukan ketika proses indexing ulang. Urutan dari
+\emph{hit} dimulai dari kemunculan pertama kata tersebut dalam dokumen tertentu.
+\emph{Hit} pertama dalam dokumen kemudian disambungkan ke \emph{id} dari dokumen
+di depannya dengan menggunakan pointer.
+
+\begin{figure}[H]
+  \centering{}
+	\includegraphics[width=0.85\textwidth]{gambar/linkedListHit}
+  \caption{Rangkaian \emph{hit} dengan struktur data \emph{linked list}}
+\end{figure}
+
+Iterasi terhadap seluruh \emph{hit} dapat dihindari dengan menyimpan total
+\emph{hit} untuk suatu kata dalam suatu dokumen di depan rangkaian \emph{hit}.
+Hal ini akan membuat proses penambahan \emph{hit} menjadi lebih efisien dan
+memudahkan kalkulasi tingkat kepentingan suatu kata.
+
+\begin{figure}[H]
+  \centering{}
+	\includegraphics[width=0.85\textwidth]{gambar/hubunganStrukturPencarian}
+  \caption{Penempatan jumlah \emph{hit} dalam struktur index}
+\end{figure}
+
+\subsection{Skema Penyimpanan Index}
+
+Proses indexing akan menghasilkan \emph{forward index}, yaitu index yang telah
+terurut berdasarkan \textit{id} dari dokumen. Untuk membuat \textit{inverted
+index}, data pada \textit{forward index} akan diurutkan berdasarkan \textit{id}
+dari kosakata.
+
+Kemudian, dibuat dua salinan dari daftar index. Salinan pertama berisi daftar
+\emph{hit} yang termasuk dalam kategori \emph{fancy hit} atau \emph{anchor hit}.
+Salinan kedua adalah daftar \emph{hit} sisanya. Hal ini bertujuan untuk
+mengurangi kemungkinan akses dari index, karena pada sebagian besar kasus query
+dapat dipenuhi dengan hanya mengakses data pada \emph{fancy hit} dan
+\emph{anchor hit}.
+
+Pada contoh kasus mesin pencari, jumlah data di seluruh internet yang terus
+bertambah membuat potensi penggunaan media penyimpanan menjadi hampir tidak
+terbatas. Hal tersebut dapat menyebabkan tidak cukupnya kapasitas memori untuk
+menampung seluruh index. Untuk mengatasinya, skema penyimpanan index perlu di
+partisi menjadi beberapa bagian.
+
+Selain itu, pada tiap salinan index, index juga akan di sortir berdasarkan
+\emph{id} dari dokumen. Tujuannya adalah untuk memudahkan proses \emph{merging}
+ketika dihadapkan pada situasi dimana query memiliki banyak kata.
+
+% \subsection{Pemeringkatan Query}
+%
+% Untuk memenuhi kebutuhan tambahan seperti pemeringkatan query, struktur
+% pencarian perlu menampung data tambahan seperti frekuensi kemunculan kata dan
+% parameter kompresi. Apabila data tersebut tidak dapat dimuat seluruhnya pada
+% memori, maka struktur pencarian dapat dipecah dan disimpan sebagian pada ruang
+% penyimpanan. Sebagai contoh, kata yang bersifat umum dapat disimpan pada memori
+% untuk mengurangi kemungkinan akses ke ruang penyimpanan.
+
+\section{Proses Pembuatan Index}
+
+Sebagai contoh, pada tabel \ref{tab:lirik} digunakan sampel teks berupa lirik
+lagu anak-anak. Pada kasus ini, diasumsikan bahwa setiap baris merupakan isi
+dari dokumen terpisah.
+
+\begin{center}
+  \begin{longtable}{ P{0.15\textwidth{}} P{0.75\textwidth{}}}
+    \caption{Contoh teks dari lirik lagu anak-anak}
+    \endlastfoot{}
+    \label{tab:lirik} \\
+    \textbf{Dokumen} & \textbf{Teks} \\
+    \hline{}
+    1 & Pease porridge hot, pease porridge cold, \\
+    2 & Pease porridge in the pot, \\
+    3 & Nine days old. \\
+    4 & Some like it hot, some like it cold, \\
+    5 & Some like it in the pot, \\
+    6 & Nine days old. \\
+  \end{longtable}
+\end{center}
+
+Seluruh kata dalam seluruh koleksi dokumen kemudian akan diambil jumlah
+kemunculannya beserta nomor dokumen tempat kata tersebut ditemukan, dan
+dikumpulkan berdasarkan keunikan kata-nya.
+
+\begin{center}
+  \begin{longtable}{ P{0.1\textwidth{}} P{0.1\textwidth{}} P{0.25\textwidth{}}}
+    \caption{\textit{Inverted file index} dari lirik lagu pada tabel
+    \ref{tab:lirik}}
+    \endlastfoot{}
+    \label{tab:file_index} \\
+    \textbf{Nomor} & \textbf{Kata} & \textbf{Index} \\
+    \hline{}
+    1 & cold & $\langle{}2; 1, 4 \rangle{}$ \\
+    2 & days & $\langle{}2; 3, 6 \rangle{}$ \\
+    3 & hot & $\langle{}2; 1, 4 \rangle{}$ \\
+    4 & in & $\langle{}2; 2, 5 \rangle{}$ \\
+    5 & it & $\langle{}2; 4, 5 \rangle{}$ \\
+    6 & like & $\langle{}2; 4, 5 \rangle{}$ \\
+    7 & nine & $\langle{}2; 3, 6 \rangle{}$ \\
+    8 & old & $\langle{}2; 3, 6 \rangle{}$ \\
+    9 & pease & $\langle{}2; 1, 2 \rangle{}$ \\
+    10 & porridge & $\langle{}2; 1, 2 \rangle{}$ \\
+    11 & pot & $\langle{}2; 2, 5 \rangle{}$ \\
+    12 & some & $\langle{}2; 4, 5 \rangle{}$ \\
+    13 & the & $\langle{}2; 2, 5 \rangle{}$ \\
+  \end{longtable}
+\end{center}
+
+Hasil index pada tabel \ref{tab:file_index} merupakan bentuk
+\textit{inverted file index}, yang memetakan kata ke dokumen tempat kemunculan
+kata tersebut. Untuk membuat implementasi ulang modul index milik Google, maka
+diperlukan index dengan granularitas yang lebih halus. Modul index milik Google
+menggunakan \textit{word-level index}, dimana index juga menyimpan posisi kata
+dalam dokumen. \textit{Word-level index} dapat mengatasi situasi dimana jumlah
+kemunculan suatu kata dalam dokumen lebih dari satu kali.
+
+Dengan mengabaikan detail selain posisi kata dalam dokumen, index pada tabel
+\ref{tab:file_index} dapat dikembangkan menjadi seperti berikut
+
+\begin{center}
+  \begin{longtable}{ P{0.1\textwidth{}} P{0.1\textwidth{}} P{0.2\textwidth{}}}
+    \caption{\textit{Word-level index} dari lirik lagu pada tabel
+    \ref{tab:lirik}}
+    \endlastfoot{}
+    \label{tab:word_index} \\
+    \textbf{Nomor} & \textbf{Kata} & \textbf{Index} \\
+    \hline{}
+    1 & cold & $\langle{}2; (1;6), (4;8) \rangle{}$ \\
+    2 & days & $\langle{}2; (3;2), (6;2) \rangle{}$ \\
+    3 & hot & $\langle{}2; (1;3), (4;4) \rangle{}$ \\
+    4 & in & $\langle{}2; (2;3), (5;4) \rangle{}$ \\
+    5 & it & $\langle{}2; (4;3,7), (5;3) \rangle{}$ \\
+    6 & like & $\langle{}2; (4;2,6), (5;2) \rangle{}$ \\
+    7 & nine & $\langle{}2; (3;1), (6;1) \rangle{}$ \\
+    8 & old & $\langle{}2; (3;3), (6;3) \rangle{}$ \\
+    9 & pease & $\langle{}2; (1;1,4), (2;1) \rangle{}$ \\
+    10 & porridge & $\langle{}2; (1;2,5), (2;2) \rangle{}$ \\
+    11 & pot & $\langle{}2; (2;5), (5;6) \rangle{}$ \\
+    12 & some & $\langle{}2; (4;1,5), (5;1) \rangle{}$ \\
+    13 & the & $\langle{}2; (2;4), (5;5) \rangle{}$ \\
+  \end{longtable}
+\end{center}
+
+\subsection{Pengolahan Query}
+
+Untuk query yang hanya mengandung satu kata, hasil bisa langsung didapatkan
+dengan melakukan pencarian kosakata yang memenuhi query pada daftar kosakata.
+Setelah ditemukan dokumen yang membuat kata yang memenuhi query tersebut diambil
+dengan petunjuk dari data yang disematkan pada daftar kosakata.
+
+Query yang melibatkan banyak kata akan memerlukan proses penggabungan hasil dari
+kosakata yang sesuai. Sebagai contoh mudahnya, query yang melibatkan banyak kata
+dapat digabungkan dengan menggunakan operator logika. Operator \textit{OR} akan
+memberikan gabungan dari hasil. Sementara operator \textit{AND} akan memberikan
+irisan dari hasil. Jika diberikan query sebagai berikut
+
+\[
+  Q_1 \;\textit{AND} \;Q_2 \;\textit{AND} \;\cdots{} \;\textit{AND} \;Q_N
+\]
+
+maka dilakukan pencarian untuk setiap dokumen yang mengandung kata yang memenuhi
+seluruh rangkaian $Q_1$ hingga $Q_n$. Dari seluruh dokumen yang sesuai, maka
+dicari irisan dari hasil tersebut (dokumen yang memiliki kedua query tersebut).
+
+Sebagai contoh, dari index pada tabel \ref{tab:file_index}, apabila diberikan
+query
+
+\[
+  hot\; \textit{AND} \;like
+\]
+
+maka akan didapatkan lokasi dari index dengan kosakata \textit{hot} dan
+\textit{like}, yaitu $\langle{}1, 4 \rangle{}$ dan $\langle{}4, 5 \rangle{}$.
+Dari data lokasi tersebut, mereka kemudian digabungkan (diambil irisannya),
+sehingga didapatkan dokumen 4 yang memenuhi kedua query tersebut.
+
+Untuk query yang mengandung banyak kata yang tidak digabungkan dengan operator
+boolean, penggunaan \textit{inverted file} seperti contoh diatas akan
+menimbulkan banyaknya \textit{false match} yang mengurangi kualitas hasil dari
+query. \textit{False match} sendiri dapat diatas dengan melakukan pemindaian
+untuk memastikan hasil dari query. Tetapi pemindaian akan mengurangi performa
+keseluruhan dari proses pengambilan data.
+
+Penggunaan \textit{word-level index} dapat menangani hal tersebut dengan
+menggunakan informasi yang lebih lengkap yang tersemat pada tiap \textit{hit}.
+Karena terdapat informasi terkait posisi kata dalam dokumen, jarak antara kata
+dapat dibandingkan sesuai dengan query.
+
+% \subsection{Query Multi Kata}
+%
+% Apabila query memiliki lebih dari satu kata, untuk memperoleh hasil yang lebih
+% akurat, struktur pencarian membutuhkan data tambahan. Data tersebut adalah
+% posisi kata dalam suatu dokumen. Dengan menyimpan posisi kata, dapat dilakukan
+% perbandingan posisi antar kata yang terdapat pada query.
+
+\section{Perbandingan Metode \emph{Indexing}}
+
+\subsection{\emph{Signature File Index}}
+
+\emph{Signature file} adalah suatu metode probabilistik yang digunakan sebagai
+alternatif untuk mengindeks teks. Pada implementasi \emph{signature file},
+setiap dokumen memiliki suatu \emph{descriptor}, yaitu rangkaian \emph{bit} yang
+merepresentasikan konten dari dokumen. \emph{Descriptor} dibuat dengan cara
+menggunakan beberapa \emph{hash function} untuk mendapatkan suatu rangkaian bit
+unik yang merepresentasikan suatu kata dalam dokumen. 
+
+Karena sifatnya yang probabilistik, \emph{descriptor} tidak dapat bersifat unik
+sepenuhnya. Terdapat kemungkinan konflik antara \emph{descriptor} dari tiap
+kata. Oleh karena itu, setiap hasil \emph{hashing} dari suatu kata yang sesuai
+dengan \emph{descriptor} tertentu perlu diartikan sebagai suatu kemungkinan,
+bukan suatu kepastian.
+
+Untuk memastikannya, perlu dilakukan \emph{scanning} pada dokumen yang diduga
+mengandung kata tersebut. Kemungkinan terjadinya konflik dapat dikurangi dengan
+menggunakan lebih banyak bit, tetapi proses \emph{scanning} tetap perlu
+dilakukan untuk memastikan ada atau tidaknya suatu kata.
+
+% Signature vs Inverted
+Dibandingkan dengan inverted file, signature file memiliki dua kekurangan yang
+memiliki dampak langsung untuk kebutuhan mesin pencari. Yang pertama adalah
+performa yang lebih lambat dalam hal pengambilan data dari database. Hal ini
+dikarenakan perlunya melakukan \emph{scanning} untuk memastikan suatu kata ada
+di dalam suatu dokumen. Yang kedua adalah perlunya proses yang rumit untuk
+mengolah query yang mengandung disjungsi atau negasi.
+
+Signature file memiliki satu keunggulan dibandingkan inverted file, yaitu tidak
+membutuhkan penyimpanan daftar kosakata pada memori. Oleh karena itu, di masa
+lalu signature file lebih umum digunakan karena alasa keterbatasan ruang
+penyimpanan. Tetapi seiring berjalannya waktu, inverted file mengadopsi teknik
+kompresi yang membuat keunggulan signature file ini menjadi tidak berlaku lagi.
+
+\subsection{\emph{Bitmap Index}}
+
+\emph{Bitmap} adalah. Bitmap menggunakan \emph{bitvector} sebagai representasi
+index. Setiap kata memiliki \emph{bitvector} yang menunjukkan keberadaan kata
+tersebut dalam berbagai dokumen. Panjang dari \emph{bitvector} tergantung dari
+jumlah dokumen secara kesuluruhan. Konsep bitmap sangat mudah dan cepat untuk
+digunakan. Tetapi, bentuk struktur \emph{bitvector} membuat kebutuhan ruang
+penyimpanan menjadi sangat besar.
+
+Karena kekurangannya dalam hal ukuran struktur data, bitmap tidak dapat
+digunakan pada berbagai kebutuhan dunia nyata, terutama mesin pencari.
+
+\subsection{\emph{WordNet}}
+
+\emph{WordNet} adalah suatu \emph{synonym ring} yang mampu mengelompokkan kata
+berdasarkan makna yang ekuivalen secara semantik. \emph{WordNet} dapat digunakan
+pada proses indexing dengan harapan hasil dari pengelompokan kata yang ditemukan
+dalam dokumen dapat menjadi lebih baik. Hal ini dapat memberikan peningkatan
+performa dalam proses pengambilan data.
+
+Implementasi index menggunakan \emph{WordNet} dapat digunakan sebagai pembanding
+untuk metode \emph{inverted file} yang telah dijelaskan sebelumnya.

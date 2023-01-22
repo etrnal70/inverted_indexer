@@ -30,12 +30,24 @@
 \usepackage{pdfpages}
 
 %table
+\usepackage{array}
+\usepackage{longtable}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \usepackage{graphics}
 
 \usepackage{wrapfig}
 
 %bibliography
-\usepackage[numbers]{natbib}
+% \usepackage[numbers]{natbib}
+\usepackage[
+  style=authoryear-icomp,
+  maxcitenames=1,
+  isbn=false,
+  doi=false,
+  url=false,
+  babel=other,
+]{biblatex}
+\addbibresource{daftar-pustaka.bib}
 
 %equation
 \usepackage{amsmath}
@@ -49,7 +61,6 @@
 
 \idnum{3145161299}
 
-%\approvaldate{12 Februari 2019}
 \approvaldate{12 Februari 2019}
 
 \degree{Sarjana Ilmu Komputer}
@@ -114,9 +125,10 @@
 %   gunakan reference manager seperti Mendeley, Zotero, EndNote,
 %   dll.
 %-----------------------------------------------------------------
-\bibliography{daftar-pustaka}
-\bibliographystyle{apalike}
+% \bibliography{daftar-pustaka}
+% \bibliographystyle{apalike}
 \addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}
+\printbibliography{}
 %-----------------------------------------------------------------
 %Disini akhir masukan Daftar Pustaka
 %-----------------------------------------------------------------
