@@ -38,15 +38,55 @@
 \usepackage{wrapfig}
 
 %bibliography
-% \usepackage[numbers]{natbib}
 \usepackage[
   style=authoryear-icomp,
   maxcitenames=1,
   isbn=false,
   doi=false,
   url=false,
-  babel=other,
+  autolang=other,
+  hyperref=true,
+  sortcites=true,
+  bibwarn=true,
+  firstinits=true,
+  autolang=other,
 ]{biblatex}
+\DefineBibliographyStrings{english}{%
+  andothers = {dkk\adddot,\addspace},
+}
+\DeclareFieldFormat{citehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{#1}}
+
+\DeclareFieldFormat{textcitehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{%
+    #1%
+    \ifbool{cbx:parens}
+      {\bibcloseparen\global\boolfalse{cbx:parens}}
+      {}}}
+
+\savebibmacro{cite}
+\savebibmacro{textcite}
+
+\renewbibmacro*{cite}{%
+  \printtext[citehyperref]{%
+    \restorebibmacro{cite}%
+    \usebibmacro{cite}}}
+
+\renewbibmacro*{textcite}{%
+  \ifboolexpr{
+    ( not test {\iffieldundef{prenote}} and
+      test {\ifnumequal{\value{citecount}}{1}} )
+    or
+    ( not test {\iffieldundef{postnote}} and
+      test {\ifnumequal{\value{citecount}}{\value{citetotal}}} )
+  }
+    {\DeclareFieldAlias{textcitehyperref}{noformat}}
+    {}%
+  \printtext[textcitehyperref]{%
+    \restorebibmacro{textcite}%
+    \usebibmacro{textcite}}}
 \addbibresource{daftar-pustaka.bib}
 
 %equation
@@ -55,51 +95,51 @@
 %-----------------------------------------------------------------
 %Disini awal masukan untuk data proposal skripsi
 %-----------------------------------------------------------------
-\titleind{Perancangan Indexing Luar Biasa Bismillah 4 Tahun Aamiinn}
+\titleind{Penambahan Fungsi Indexing Pada Search Engine Telusuri Melalui Inverted Index Untuk Meningkatkan Performa Waktu Pencarian}
 
 \fullname{Mochammad Hanif Ramadhan}
 
-\idnum{3145161299}
+\idnum{1313619025}
 
-\approvaldate{12 Februari 2019}
+\approvaldate{23 Juni 2023}
 
 \degree{Sarjana Ilmu Komputer}
 
-\yearsubmit{2022}
+\yearsubmit{2023}
 
 \program{Ilmu Komputer}
 
 \dept{Ilmu Komputer}
 
-\firstsupervisor{Med Irzal, M. Kom.}
-\firstnip{197706152003121001}
+\firstsupervisor{Muhammad Eka Suryana, M. Kom.}
+\firstnip{198512232012121002}
 
-\secondsupervisor{Muhammad Eka Suryana, M. Kom.}
-\secondnip{198512232012121002}
+\secondsupervisor{Med Irzal, M. Kom.}
+\secondnip{197706152003121001}
 
 %-----------------------------------------------------------------
 %Disini akhir masukan untuk data proposal skripsi
 %-----------------------------------------------------------------
 
 \tolerance=1
-\emergencystretch=\maxdimen
+\emergencystretch=\maxdimen{}
 \hyphenpenalty=10000
 \hbadness=10000
 
 \begin{document}
 
-\cover
+\cover{}
 %-----------------------------------------------------------------
 
 %-----------------------------------------------------------------
 %Disini akhir masukan untuk muka skripsi
 %-----------------------------------------------------------------
 
-\tableofcontents 
+\tableofcontents{}
 \addcontentsline{toc}{chapter}{DAFTAR ISI}
-\listoffigures
+\listoffigures{}
 \addcontentsline{toc}{chapter}{DAFTAR GAMBAR}
-\listoftables
+\listoftables{}
 \addcontentsline{toc}{chapter}{DAFTAR TABEL}
 
 \begin{counterpage}

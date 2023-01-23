@@ -13,7 +13,7 @@
 %Created by Pekik Nurwantoro, Universitas Gadjah Mada, Yogyakarta, Indonesia
 \ProvidesClass{jtetiskripsi}
 
-\RequirePackage[english,bahasa]{babel}
+\RequirePackage[bahasa,english]{babel}
 \RequirePackage{indentfirst}
 \RequirePackage{setspace}
 \RequirePackage[T1]{fontenc}
