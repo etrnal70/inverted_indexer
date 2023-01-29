@@ -77,8 +77,7 @@ ruang pada \emph{repository}.
 Ketika mengolah data dari \emph{repository}, terdapat langkah tambahan yang
 dilakukan jika menemui \emph{anchor text}. \emph{Anchor text} adalah teks berupa
 URL yang merujuk kepada dokumen lain. Setiap \emph{anchor text} yang ditemukan
-pada data dari \emph{repository} akan disimpan pada sebuah daftar URL\@. Daftar
-ini nantinya 
+pada data dari \emph{repository} akan disimpan pada sebuah daftar URL\@.
 
 \section{\emph{Document Index}}
 \emph{Document index} menyimpan beberapa informasi tambahan pada setiap dokumen.
@@ -260,11 +259,26 @@ dari dokumen terpisah.
 
 \begin{center}
   \begin{longtable}{ P{0.15\textwidth{}} P{0.75\textwidth{}}}
-    \caption{Contoh teks dari lirik lagu anak-anak}
-    \endlastfoot{}
-    \label{tab:lirik} \\
-    \textbf{Dokumen} & \textbf{Teks} \\
-    \hline{}
+  \caption{Contoh teks dari lirik lagu anak-anak} \label{tab:lirik} \\
+
+  % First page header
+  \multicolumn{1}{c}{\textbf{Dokumen}} & \multicolumn{1}{c}{\textbf{Teks}} \\ \hline 
+  \endfirsthead
+
+  % Next page header
+  \multicolumn{2}{c}%
+    {{\textbf{\tablename \space{} \thetable{}:} Contoh teks dari lirik lagu anak-anak}} \\
+  \multicolumn{1}{c}{\textbf{Dokumen}} & \multicolumn{1}{c}{\textbf{Teks}} \\ \hline 
+  \endhead
+
+  % Next page indication footer
+  \hline \multicolumn{2}{r}{{Dilanjutkan pada halaman berikutnya}} \\ \hline
+  \endfoot
+
+  % Last footer without next page indication
+  \hline \hline
+  \endlastfoot
+
     1 & Pease porridge hot, pease porridge cold, \\
     2 & Pease porridge in the pot, \\
     3 & Nine days old. \\
@@ -280,12 +294,28 @@ dikumpulkan berdasarkan keunikan kata-nya.
 
 \begin{center}
   \begin{longtable}{ P{0.1\textwidth{}} P{0.1\textwidth{}} P{0.25\textwidth{}}}
-    \caption{\textit{Inverted file index} dari lirik lagu pada tabel
-    \ref{tab:lirik}}
-    \endlastfoot{}
-    \label{tab:file_index} \\
-    \textbf{Nomor} & \textbf{Kata} & \textbf{Index} \\
-    \hline{}
+  \caption{\textit{Inverted file index} dari lirik lagu pada tabel
+  \ref{tab:lirik}} \label{tab:file_index} \\
+
+  % First page header
+  \multicolumn{1}{c}{\textbf{Nomor}} & \multicolumn{1}{c}{\textbf{Kata}} & \multicolumn{1}{c}{\textbf{Index}} \\ \hline 
+  \endfirsthead
+
+  % Next page header
+  \multicolumn{3}{c}%
+    {{\textbf{\tablename\ \thetable{}:} \textit{Inverted file index} dari lirik lagu pada tabel
+    \ref{tab:lirik}}} \\
+  \multicolumn{1}{c}{\textbf{Nomor}} & \multicolumn{1}{c}{\textbf{Kata}} & \multicolumn{1}{c}{\textbf{Index}} \\ \hline 
+  \endhead
+
+  % Next page indication footer
+  \hline \multicolumn{3}{r}{{Dilanjutkan pada halaman berikutnya}} \\ \hline
+  \endfoot
+
+  % Last footer without next page indication
+  \hline \hline
+  \endlastfoot
+
     1 & cold & $\langle{}2; 1, 4 \rangle{}$ \\
     2 & days & $\langle{}2; 3, 6 \rangle{}$ \\
     3 & hot & $\langle{}2; 1, 4 \rangle{}$ \\
@@ -317,7 +347,6 @@ Dengan mengabaikan detail selain posisi kata dalam dokumen, index pada tabel
   \begin{longtable}{ P{0.1\textwidth{}} P{0.1\textwidth{}} P{0.2\textwidth{}}}
     \caption{\textit{Word-level index} dari lirik lagu pada tabel
     \ref{tab:lirik}}
-    \endlastfoot{}
     \label{tab:word_index} \\
     \textbf{Nomor} & \textbf{Kata} & \textbf{Index} \\
     \hline{}
@@ -440,10 +469,10 @@ digunakan pada berbagai kebutuhan dunia nyata, terutama mesin pencari.
 \subsection{\emph{WordNet}}
 
 \emph{WordNet} adalah suatu \emph{synonym ring} yang mampu mengelompokkan kata
-berdasarkan makna yang ekuivalen secara semantik. \emph{WordNet} dapat digunakan
-pada proses indexing dengan harapan hasil dari pengelompokan kata yang ditemukan
-dalam dokumen dapat menjadi lebih baik. Hal ini dapat memberikan peningkatan
-performa dalam proses pengambilan data.
+berdasarkan makna yang ekuivalen secara semantik (sama secara makna).
+\emph{WordNet} dapat digunakan pada proses indexing dengan harapan hasil dari
+pengelompokan kata yang ditemukan dalam dokumen dapat menjadi lebih baik. Hal
+ini dapat memberikan peningkatan performa dalam proses pengambilan data.
 
 Implementasi index menggunakan \emph{WordNet} dapat digunakan sebagai pembanding
 untuk metode \emph{inverted file} yang telah dijelaskan sebelumnya.
