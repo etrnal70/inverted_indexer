@@ -1,16 +1,9 @@
-# Naskah Skripsi LaTeX
+# (WIP) Inverted File Index Module
 
-Template Naskah Skripsi dengan typesetting LaTeX untuk JTETI Universitas Gadjah Mada. Template ini merupakan hasil modifikasi dari versi pak Pekik Nurwantoro (FMIPA UGM) dan mas Yohan (JTETI UGM 2008).
+Bagian dari arsitektur mesin pencari [Telusuri](https://github.com/lazuardyk/search-engine)
 
-Diedit dan digunakan untuk keperluan SKRIPSI SARJANA ILMU KOMPUTER.
+## TODO
 
-Diunggah oleh:  
-Gregorius Andito Herjuno  
-ILMU KOMPUTER 2013  
-UNIVERSITAS NEGERI JAKARTA  
-3145136218
-
-Modifikasi lebih lanjut oleh:  
-MOCHAMMAD HANIF RAMADHAN  
-ILMU KOMPUTER 2019  
-UNIVERSITAS NEGERI JAKARTA
+- [ ] Reimplementasi GST
+- [ ] Modul index
+- [ ] Testing
