@@ -1,4 +1,4 @@
- %!TEX root = ./template-skripsi.tex
+%!TEX root = ./template-skripsi.tex
 %-------------------------------------------------------------------------------
 %                            BAB II
 %               KAJIAN TEORI
@@ -9,13 +9,13 @@
 \section{Proses \emph{Indexing}}
 
 \emph{Indexing} adalah proses pemetaan seluruh data pada \emph{database}.
-Proses dimulai dengan mengambil data mentah dari \emph{repository}, yaitu tempat
-penampungan data yang telah dikumpulkan oleh \emph{crawler}. Data tersebut
+Proses dimulai dengan mengambil data mentah dari tempat penyimpanan halaman web
+yang telah dikumpulkan oleh \emph{crawler} (\textit{repository}). Data tersebut
 kemudian akan dipetakan sesuai dengan struktur index yang digunakan. Hasil dari
-proses indexing adalah sebuah daftar \emph{index}, yang memiliki cara kerja yang
-serupa dengan index yang biasa ditemui pada bagian belakang sebuah buku. Index
-adalah suatu representasi data yang merujuk kepada lokasi data yang lebih
-lengkap di dalam database.
+proses indexing adalah sebuah daftar kosakata dengan pasangan informasi berupa
+lokasi, yang memiliki cara kerja yang serupa dengan index yang biasa ditemui
+pada bagian belakang sebuah buku. Index adalah suatu representasi data yang
+merujuk kepada lokasi data yang lebih lengkap di dalam database.
 
 Index merupakan komponen penting dalam suatu arsitektur mesin pencari.
 Penggunaan index memberikan pengaruh signifikan dalam proses penerimaan data
@@ -68,9 +68,9 @@ representasi index.
 \emph{Repository} merupakan tempat penyimpanan seluruh kode HTML dari setiap
 halaman web yang telah di-\emph{crawl}. Setiap dokumen memiliki data tambahan
 yang disematkan kepadanya, yaitu nomor \emph{id} yang dibuatkan untuk dokumen
-tersebut, panjang dari dokumen, dan \emph{URL} dari dokumen tersebut. Seluruh
-data tersebut dikompres dengan library \emph{zlib} untuk mengurangi penggunaan
-ruang pada \emph{repository}.
+tersebut (\textit{docID}), panjang dari dokumen, dan \emph{URL} dari dokumen
+tersebut. Seluruh data tersebut dikompres dengan library \emph{zlib} untuk
+mengurangi penggunaan ruang pada \emph{repository}.
 
 \section{Daftar URL}
 
@@ -106,6 +106,24 @@ memori. Hal ini bertujuan untuk memastikan bahwa dalam situasi pencarian hasil
 dengan query boolean, hanya membutuhkan setidaknya satu kali akses ke ruang
 penyimpanan per kata.
 
+\section{\textit{docID} dan \textit{wordID}}
+Untuk merepresentasikan dokumen dan kosakata secara unik, akan digunakan suatu
+format penamaan khusus. Dengan mempertimbangkan kemungkinan terjadinya
+\textit{collision} pada \textit{identifier} dari dokumen dan kosakata, maka 
+akan digunakan teknik \textit{hashing} untuk memberikan \textit{randomness} yang
+lebih baik.
+
+% TODO: Penjelasan kenapa pilih MurmurHash3. Sama paper pendukung kalo bisa
+% Jelasin juga panjang maks. Rencananya pake konfigurasi 128bit dengan mesin 64bit
+Algoritma \textit{hashing} yang akan digunakan adalah \textit{MurmurHash3}.
+Alasan dipilihnya algoritma tersebut karena huhu
+
+% TODO: Kayaknya perlu ditambahin variabel lain
+Untuk kosakata, proses \textit{hashing} akan dilakukan terhadap kosakata itu
+sendiri. Sementara untuk dokumen, proses \textit{hashing} akan dilakukan terhadap
+gabungan dari dua komponen dokumen, yaitu tanggal ketika dokumen tersebut
+diunduh dan \textit{URL} dari dokumen itu sendiri.
+
 \section{\emph{Inverted Index}}
 
 \emph{Inverted index} merupakan jenis index yang memetakan potongan isi dari
@@ -113,32 +131,6 @@ suatu dokumen atau koleksi dokumen terhadap lokasi aslinya di dokumen atau
 koleksi dokumen tersebut. Karena bentuk strukturnya, inverted index cocok
 digunakan untuk kebutuhan penerimaan data berdasarkan query seperti mesin
 pencari.
-
-% \subsection{Struktur \emph{Inverted File Index}}
-
-% Umumnya, implementasi dari inverted file index terdiri dari dua bagian, yaitu
-% suatu struktur pencarian yang berisi seluruh kata pada seluruh dokumen yang
-% telah di-\emph{index}, dan daftar dokumen yang telah di-\emph{index} beserta
-% informasi lebih dalam terkait keberadaan kata pada struktur pencarian tersebut.
-
-% Clarification
-% jangan gunakan istilah struktur pencarian, pecah menjadi kegunaaannya
-% masing-masing
-% \subsubsection{Struktur Pencarian}
-%
-% Struktur pencarian terdiri dari dua bagian, yaitu daftar kata yang telah di
-% index dan data tentang dokumen tempat kemunculan kata tersebut. Implementasi
-% dari inverted file index mengasumsikan jika perangkat memiliki cukup memori
-% untuk menampung seluruh struktur pencarian. Hal ini bertujuan untuk memastikan
-% bahwa pencarian hasil yang dapat memenuhi suatu query boolean hanya membutuhkan
-% setidaknya sekali akses ke ruang penyimpanan per kata.
-%
-% Akses terhadap ruang penyimpanan perlu dibatasi se minimal mungkin. Hal ini
-% berdasarkan contoh kasus penggunaan database untuk kebutuhan mesin pencari.
-% Karena jumlah data pada internet yang begitu banyak, proses pemetaan informasi
-% dari seluruh internet akan menghasilkan data yang berukuran sangat besar. Hal
-% ini akan menyebabkan proses baca ke ruang penyimpanan, walaupun hanya satu kali,
-% memakan waktu yang tidak sebentar.
 
 \subsection{Struktur Index}
 
@@ -198,8 +190,8 @@ tersebut berada.
 \emph{Hit} dirangkai dengan menggunakan struktur \emph{linked list} agar
 penambahan hit lebih mudah dilakukan ketika proses indexing ulang. Urutan dari
 \emph{hit} dimulai dari kemunculan pertama kata tersebut dalam dokumen tertentu.
-\emph{Hit} pertama dalam dokumen kemudian disambungkan ke \emph{id} dari dokumen
-di depannya dengan menggunakan pointer.
+\emph{Hit} pertama dalam dokumen kemudian disambungkan ke \textit{docID} di
+depannya dengan menggunakan pointer.
 
 \begin{figure}[H]
   \centering{}
@@ -210,7 +202,10 @@ di depannya dengan menggunakan pointer.
 Iterasi terhadap seluruh \emph{hit} dapat dihindari dengan menyimpan total
 \emph{hit} untuk suatu kata dalam suatu dokumen di depan rangkaian \emph{hit}.
 Hal ini akan membuat proses penambahan \emph{hit} menjadi lebih efisien dan
-memudahkan kalkulasi tingkat kepentingan suatu kata.
+memudahkan kalkulasi tingkat kepentingan suatu kata. Jumlah \textit{hit}
+memiliki jumlah bit yang berbeda tergantung dari lokasi daftar index. Untuk 
+\textit{inverted index} digunakan 5 bit, dan untuk \textit{forward index}
+digunakan 8 bit.
 
 \begin{figure}[H]
   \centering{}
@@ -221,9 +216,8 @@ memudahkan kalkulasi tingkat kepentingan suatu kata.
 \subsection{Skema Penyimpanan Index}
 
 Proses indexing akan menghasilkan \emph{forward index}, yaitu index yang telah
-terurut berdasarkan \textit{id} dari dokumen. Untuk membuat \textit{inverted
-index}, data pada \textit{forward index} akan diurutkan berdasarkan \textit{id}
-dari kosakata.
+terurut berdasarkan \textit{docID}. Untuk membuat \textit{inverted index}, data
+pada \textit{forward index} akan diurutkan berdasarkan \textit{wordID}.
 
 Kemudian, dibuat dua salinan dari daftar index. Salinan pertama berisi daftar
 \emph{hit} yang termasuk dalam kategori \emph{fancy hit} atau \emph{anchor hit}.
@@ -418,6 +412,36 @@ dapat dibandingkan sesuai dengan query.
 % posisi kata dalam suatu dokumen. Dengan menyimpan posisi kata, dapat dilakukan
 % perbandingan posisi antar kata yang terdapat pada query.
 
+\section{\textit{Jaccard Distance}}
+
+\textit{Jaccard index} adalah suatu metode statistik yang digunakan untuk
+mengukur kemiripan pada suatu kumpulan sampel. \textit{Jaccard index} mengukur
+kemiripan berdasarkan suatu kumpulan data yang terbatas, dan dapat dijabarkan
+sebagai nilai dari perpotongan dibagi dengan \textit{union} dari data.
+
+\begin{equation}
+  J(A,B)={{|A\cap B|} \over {|A\cup B|}} = {{|A\cap B|} \over {|A| + |B| + |A\cap B|}}
+\end{equation}
+
+\textit{Jaccard distance ($d_{J}$)} adalah salah satu penerapan dari metode
+statistik dengan \textit{Jaccard index}. \textit{Jaccard distance} digunakan
+untuk mengukur nilai ketidakmiripan diantara dua sampel data. Nilai $d_{J}$
+didapatkan dengan cara mengurangi skor $1$ dengan nilai yang didapatkan pada
+perhitungan \textit{Jaccard index}.
+
+\begin{equation}
+  d_{J}(A,B)= 1 - J(A,B) = {{|A\cup B|} - {A\cap B|} \over {|A\cup B|}}
+\end{equation}
+
+\section{Modul $typing$ pada Python}
+
+Untuk penjabaran struktur data pada modul \textit{indexing}, penulis menggunakan
+bahasa pemrograman \textit{Python}. \textit{Python} dipilih karena seluruh kode
+program yang ada pada arsitektur \textit{Telusuri} menggunakan bahasa yang sama.
+Selain itu penulis menggunakan modul $typing$ yang mulai diperkenalkan pada
+\textit{Python} versi $3.5$ untuk memberikan keterangan yang lebih jelas terkait
+tipe data apa yang digunakan.
+
 \section{Perbandingan Metode \emph{Indexing}}
 
 \subsection{\emph{Signature File Index}}
@@ -476,12 +500,3 @@ ini dapat memberikan peningkatan performa dalam proses pengambilan data.
 
 Implementasi index menggunakan \emph{WordNet} dapat digunakan sebagai pembanding
 untuk metode \emph{inverted file} yang telah dijelaskan sebelumnya.
-
-\section{Modul $typing$ pada \textit{Python}}
-
-Untuk penjabaran struktur data pada modul \textit{indexing}, penulis menggunakan
-bahasa pemrograman \textit{Python}. \textit{Python} dipilih karena seluruh kode
-program yang ada pada arsitektur \textit{Telusuri} menggunakan bahasa yang sama.
-Selain itu penulis menggunakan modul $typing$ yang mulai diperkenalkan pada
-\textit{Python} versi $3.5$ untuk memberikan keterangan yang lebih jelas terkait
-tipe data apa yang digunakan.

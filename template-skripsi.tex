@@ -34,7 +34,6 @@
 \usepackage{longtable}
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \usepackage{graphics}
-
 \usepackage{wrapfig}
 
 %bibliography
@@ -92,10 +91,52 @@
 %equation
 \usepackage{amsmath}
 
+%algorithm & syntax
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\algnewcommand\algorithmicforeach{\textbf{for each:}}
+\algnewcommand\ForEach{\item[ \algorithmicforeach]}
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%
+\newenvironment{conditions}
+  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}={}$} l}}
+  {\end{tabular}\par\vspace{\belowdisplayskip}}
+
+%code
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    frame=single,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
+\makeatletter
+\def\thechapter{\@Roman\c@chapter}
+\AtBeginDocument{%
+  \def\thelstlisting{\@arabic\c@chapter.\@arabic\c@lstlisting}}
+\makeatother
+
+
 %-----------------------------------------------------------------
 %Disini awal masukan untuk data proposal skripsi
 %-----------------------------------------------------------------
-\titleind{Penambahan Fungsi Indexing Pada Search Engine Telusuri Melalui Inverted Index Untuk Meningkatkan Performa Waktu Pencarian}
+\titleind{Penambahan Fungsi Indexing Pada Search Engine Telusuri Melalui
+Inverted Index Untuk Meningkatkan Performa Waktu Pencarian}
 
 \fullname{Mochammad Hanif Ramadhan}
 
@@ -135,6 +176,7 @@
 %Disini akhir masukan untuk muka skripsi
 %-----------------------------------------------------------------
 
+\singlespacing{}
 \tableofcontents{}
 \addcontentsline{toc}{chapter}{DAFTAR ISI}
 \listoffigures{}
@@ -148,7 +190,7 @@
 %-----------------------------------------------------------------
 \include{bab1}
 \include{bab2}
-% \include{bab3}
+\include{bab3}
 % \include{bab4}
 % \include{bab5}
 
@@ -168,6 +210,7 @@
 % \bibliography{daftar-pustaka}
 % \bibliographystyle{apalike}
 \addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}
+\singlespacing{}
 \printbibliography{}
 %-----------------------------------------------------------------
 %Disini akhir masukan Daftar Pustaka

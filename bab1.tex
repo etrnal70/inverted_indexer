@@ -14,8 +14,8 @@ untuk melakukan pencarian situs web. Pada awal kemunculannya, mesin pencari
 lebih diperuntukkan bagi kalangan akademisi untuk mencari jurnal atau dokumen
 akademik lainnya. Namun, seiring dengan meluasnya adopsi internet ke berbagai
 lapisan masyarakat, mesin pencari memiliki peran yang lebih besar dalam
-penggunaan internet. Mesin pencari menjadi sarana utama dalam pencarian
-informasi.
+penggunaan internet. Mesin pencari berubah menjadi sarana utama dalam pencarian
+informasi secara umum.
 
 % Sejarah mesin pencari
 Bila dilihat dari penggunaannya, mesin pencari bekerja dengan cara mengolah
@@ -26,47 +26,48 @@ pada internet. Mesin pencari membutuhkan database yang berisi informasi pada
 halaman yang tersebar di seluruh jaringan internet. 
 
 Ketika internet masih memiliki lingkup pengguna yang kecil, metode pengumpulan
-data untuk database mesin pencari masih bersifat manual. \emph{Archie}, mesin
+data untuk database mesin pencari masih dilakukan secara manual. \emph{Archie}, mesin
 pencari pertama, mengumpulkan data dengan cara mencari daftar situs yang
 tersedia secara publik menggunakan protokol \emph{Telnet} dan memperbarui-nya
 secara berkala. \emph{Yahoo} pada awal kemunculannya mempekerjakan beberapa
-kurator untuk mereview situs mana yang berkualitas untuk kemudian ditambahkan
-secara manual kedalam database.  Semakin tingginya adopsi internet membuat
+kurator untuk menyortir situs mana yang berkualitas untuk kemudian ditambahkan
+secara manual kedalam database. Namun, semakin tingginya adopsi internet membuat
 jumlah data pada internet meledak. Hal ini berakibat pada diperlukannya metode
 pengumpulan data yang lebih efisien dan metode penerimaan informasi yang lebih
 cepat.
 
 % Arsitektur Google
 Mesin pencari membutuhkan serangkaian proses yang perlu dilakukan sebelum dapat
-menerima \emph{query} terkait informasi tertentu. Pada arsitektur \emph{Google},
-terdapat beberapa komponen yang memiliki tugasnya tersendiri. Pertama,
-diperlukan proses \emph{crawling} untuk mendapatkan kumpulan \emph{web page}.
-Proses ini dilakukan oleh beberapa \emph{crawler}.
-
-% Google menggunakan algoritma indexing sendiri.
-\emph{Google}, mesin pencari paling populer saat ini, mengungkapkan detail dari
-arsitektur yang digunakan dalam sebuah paper yang di rilis pada tahun 1998.
-Arsitektur \emph{Google} terdiri dari beberapa komponen utama seperti
-\emph{crawler}, modul \emph{indexer}, modul pemeringkatan \emph{PageRank} dan
-modul pencari.
+menerima \emph{query} terkait informasi tertentu. \emph{Google}, mesin pencari
+paling populer saat ini, mempunyai beberapa komponen yang menjalankan tugas
+secara spesifik. Pendiri \emph{Google}, Sergey Brin dan Lawrance Page,
+mengungkapkan detail dari arsitektur yang digunakan dalam sebuah paper yang di
+rilis pada tahun 1998 dengan judul
+\textit{The Anatomy of a Large-Scale Hypertextual Web Search Engine}. Arsitektur
+\emph{Google} terdiri dari beberapa komponen utama seperti \emph{crawler},
+modul \emph{indexer}, modul pemeringkatan \emph{PageRank} dan modul pencari.
+Seluruh modul tersebut dibuat secara mandiri tanpa menggunakan aplikasi atau
+layanan pihak ketiga.
 
 Implementasi ulang arsitektur \emph{Google} secara menyeluruh cukup sulit
-dilakukan banyak detail dari arsitektur yang tidak tercantum dalam paper nya.
-Selain itu \emph{Google} juga banyak menggunakan teknologi yang telah
+dilakukan karena banyak detail dari arsitektur yang tidak tercantum dalam paper.
+Selain itu \emph{Google} juga banyak membuat implementasi yang telah
 dioptimalkan untuk kebutuhan mesin pencari baik dari segi performa maupun
-penggunaan media penyimpanannya, tetapi kode programnya tidak dapat diakses.
+penggunaan media penyimpanannya, tanpa mempublikasikan kode program atau
+algoritma yang digunakan.
 
-% Arsitektur Lazuardy
+% Arsitektur Telusuri
 Upaya implementasi ulang arsitektur \emph{Google} telah dilakukan oleh Lazuardy
-Khatulistiwa dalam penelitiannya yang berjudul \emph{Perancangan Arsitektur
-Search Engine Dengan Mengintegrasikan Web Crawler, Algoritma Page Ranking, dan
-Document Ranking}. Arsitektur tersebut merupakan pengembangan dari penelitian
-yang dilakukan oleh Muhammad Fathan yang menghasilkan \emph{web crawler}.
-\emph{Web crawler} bertugas mengumpulkan halaman web berdasarkan
-\emph{entrypoint} tertentu.  Halaman web tersebut kemudian di ekstrak dan
-dikumpulkan daftar kata yang termuat pada halaman web tersebut serta
-\emph{outgoing link} yang merujuk kepada halaman web lain. Kedua data tersebut
-kemudian disimpan pada database \emph{MySQL}.
+Khatulistiwa dalam penelitiannya yang berjudul \emph{PERANCANGAN ARSITEKTUR
+SEARCH ENGINE DENGAN MENGINTEGRASIKAN WEB CRAWLER, ALGORITMA PAGE RANKING, DAN
+DOCUMENT RANKING}. Arsitektur tersebut merupakan pengembangan dari penelitian
+yang dilakukan oleh Muhammad Fathan dengan judul
+\textit{PERANCANGAN CRAWLER SEBAGAI PENDUKUNG PADA SEARCH ENGINE} yang
+menghasilkan \emph{web crawler}. \emph{Web crawler} bertugas mengumpulkan
+halaman web berdasarkan \emph{entrypoint} tertentu.  Halaman web tersebut
+kemudian di ekstrak dan dikumpulkan daftar kata yang termuat pada halaman web
+tersebut serta \emph{outgoing link} yang merujuk kepada halaman web lain. Kedua
+data tersebut kemudian disimpan pada database \emph{MySQL}.
 
 Data yang tersimpan pada database selanjutnya di proses oleh modul
 \emph{PageRank}. Modul \emph{PageRank} menghitung peringkat suatu halaman web
@@ -82,16 +83,17 @@ halaman.
 % Kekurangan dari arsitektur existing terutama pada bagian indexing
 Hasil riset yang telah dilakukan oleh Lazuardy masih memiliki kekurangan, dan
 implementasinya juga cukup berbeda dibandingkan dengan arsitektur milik
-\emph{Google} karena keterbatasan detailnya.  Salah satu proses yang belum
-dilakukan implementasi ulang adalah proses \emph{indexing}. \emph{Indexing}
-adalah suatu proses pemetaan \emph{record} pada database dengan tujuan
-mempercepat proses pengambilan \emph{record} dari database. Proses
-\emph{indexing} akan menghasilkan \emph{index}, yaitu representasi data yang
-merujuk pada lokasi data yang lebih lengkap pada database. Konsep \emph{index}
-disini hampir sama dengan index yang biasa ditemukan di bagian belakang buku.
+\emph{Google} karena keterbatasan detailnya.  Salah satu modul yang belum
+memiliki implementasi yang \textit{proper} adalah modul \emph{indexing}.
+\emph{Indexing} adalah suatu proses pemetaan \emph{record} pada database dengan
+tujuan mempercepat proses pengambilan \emph{record} dari database dan
+meningkatkan output hasil pencarian. Proses \emph{indexing} akan menghasilkan
+\emph{index}, yaitu representasi data yang merujuk pada lokasi data yang lebih
+lengkap pada database. Singkatnya, konsep \emph{index} pada mesin pencari kurang
+lebih sama dengan index yang biasa ditemukan di bagian belakang buku.
 
 % Penjelasan terkait indexing
-Representasi data oleh \emph{index} memiliki tingkat akurasi lokasi data
+Representasi data pada \emph{index} memiliki tingkat akurasi lokasi data
 (\emph{granularity}) yang dapat diatur, seperti suatu frase dalam suatu
 paragraf, atau unit data yang lebih kecil seperti satu kata tertentu saja.
 Pemilihan tingkat \emph{granularity} dapat mempengaruhi performa dan akurasi
@@ -176,12 +178,16 @@ metode \emph{query ranking} yang berbeda, atau melakukan enkapsulasi nilai
 
 \section{Rumusan Masalah}
 Berdasarkan uraian pada latar belakang yang di utarakan di atas, maka perumusan
-masalah pada penelitian ini adalah '\textbf{TODO}'
+masalah pada penelitian ini adalah '\textbf{penambahan fungsi \textit{indexing}
+pada mesin pencari melalui \textit{inverted index} untuk meningkatkan performa
+waktu pencarian'}.
 
 \section{Pembatasan Masalah}
 Pembatasan masalah pada penelitian ini adalah pembuatan sebagian arsitektur
 mesin pencari yaitu \emph{indexing}. Sistem \emph{indexing} yang akan dibuat
-mengacu pada konsep arsitektur \emph{Google} awal.
+mengacu pada konsep arsitektur \emph{Google} awal. Selain itu, implementasi
+sistem \textit{indexing} ini hanya akan mencakup proses konstruksi awal index
+berdasarkan data yang sudah dikumpulkan oleh \textit{crawler}.
 
 \section{Tujuan Penelitian}
 \begin{enumerate}
@@ -193,7 +199,7 @@ mengacu pada konsep arsitektur \emph{Google} awal.
 
 \section{Manfaat Penelitian}
 \begin{enumerate}
-	\item Bagi penulis (TODO)
+	\item Bagi penulis
 		
 	Menambah pengetahuan dibidang \emph{information retrieval} khususnya mengenai
 		\emph{search engine} dan \emph{crawling}, mengasah kemampuan
@@ -201,7 +207,7 @@ mengacu pada konsep arsitektur \emph{Google} awal.
 		Selain itu, penulisan ini juga merupakan media bagi penulis untuk
 		mengaplikasikan ilmu yang didapat di kampus ke kehidupan masyarakat.
 		
-	\item Bagi Universitas Negeri Jakarta (TODO)
+	\item Bagi Universitas Negeri Jakarta
 	
 	Menjadi pertimbangan dan evaluasi akademik khususnya Program Studi Ilmu
 		Komputer dalam penyusunan skripsi sehingga dapat meningkatkan kualitas

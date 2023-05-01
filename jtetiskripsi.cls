@@ -50,7 +50,7 @@
 \DeclareOption{inggris}{\@langindofalse\@langengtrue}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
-\ExecuteOptions{jtetiskripsi,duaspasi,indonesia}
+\ExecuteOptions{jtetiskripsi,satusetengahspasi,indonesia}
 \ProcessOptions
 \LoadClass[a4paper,12pt]{report}
 %\RequirePackage{natbib}
