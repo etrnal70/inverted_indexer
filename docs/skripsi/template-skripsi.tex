@@ -1,0 +1,257 @@
+
+%                      Template Naskah Skripsi
+%               	Berdasarkan format JTETI FT UGM
+% 						(c) @gunturdputra 2014
+%-------------------------------------------------------------------------------
+
+%Template pembuatan naskah skripsi.
+\documentclass{jtetiskripsi}
+
+%Untuk prefiks pada daftar gambar dan tabel
+\usepackage[titles]{tocloft}
+\renewcommand\cftfigpresnum{Gambar\  }
+\renewcommand\cfttabpresnum{Tabel\   }
+
+%Untuk hyperlink dan table of content
+\usepackage[hidelinks]{hyperref}
+\newlength{\mylenf}
+\settowidth{\mylenf}{\cftfigpresnum}
+\setlength{\cftfignumwidth}{\dimexpr\mylenf+2em}
+\setlength{\cfttabnumwidth}{\dimexpr\mylenf+2em}
+
+%Untuk Bold Face dan centering pada Keterangan
+\usepackage[labelfont=bf,justification=centering]{caption}
+
+%Untuk caption dan subcaption
+\usepackage{caption}
+\usepackage{subcaption}
+
+%pdf
+\usepackage{pdfpages}
+
+%table
+\usepackage{array}
+\usepackage{longtable}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\usepackage{graphics}
+\usepackage{wrapfig}
+
+%bibliography
+\usepackage[
+  style=authoryear-icomp,
+  maxcitenames=1,
+  isbn=false,
+  doi=false,
+  url=false,
+  autolang=other,
+  hyperref=true,
+  sortcites=true,
+  bibwarn=true,
+  firstinits=true,
+  autolang=other,
+]{biblatex}
+\DefineBibliographyStrings{english}{%
+  andothers = {et al\adddot,\addspace},
+}
+\DeclareFieldFormat{citehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{#1}}
+
+\DeclareFieldFormat{textcitehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{%
+    #1%
+    \ifbool{cbx:parens}
+      {\bibcloseparen\global\boolfalse{cbx:parens}}
+      {}}}
+
+\savebibmacro{cite}
+\savebibmacro{textcite}
+
+\renewbibmacro*{cite}{%
+  \printtext[citehyperref]{%
+    \restorebibmacro{cite}%
+    \usebibmacro{cite}}}
+
+\renewbibmacro*{textcite}{%
+  \ifboolexpr{
+    ( not test {\iffieldundef{prenote}} and
+      test {\ifnumequal{\value{citecount}}{1}} )
+    or
+    ( not test {\iffieldundef{postnote}} and
+      test {\ifnumequal{\value{citecount}}{\value{citetotal}}} )
+  }
+    {\DeclareFieldAlias{textcitehyperref}{noformat}}
+    {}%
+  \printtext[textcitehyperref]{%
+    \restorebibmacro{textcite}%
+    \usebibmacro{textcite}}}
+\addbibresource{daftar-pustaka.bib}
+
+%equation
+\usepackage{amsmath}
+
+%algorithm & syntax
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\algnewcommand\algorithmicforeach{\textbf{for each:}}
+\algnewcommand\ForEach{\item[ \algorithmicforeach]}
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%
+\newenvironment{conditions}
+  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}={}$} l}}
+  {\end{tabular}\par\vspace{\belowdisplayskip}}
+
+%code
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    frame=single,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
+\makeatletter
+\def\thechapter{\@Roman\c@chapter}
+\AtBeginDocument{%
+  \def\thelstlisting{\@arabic\c@chapter.\@arabic\c@lstlisting}}
+\makeatother
+
+%Create a new minipage environment where paragraphs have indents
+\newlength{\currentparindent}
+\newenvironment{minipageparindent}[2][c]
+  {\setlength{\currentparindent}{\parindent}% save the value
+   \noindent\begin{minipage}[#1]{#2}% open the minipage
+   \setlength{\parindent}{\currentparindent}% restore the value
+  }
+  {\end{minipage}}
+
+%Create an environment that creates a paragraph with a picture next to it, both being aligned at the top.
+\newenvironment{pictureparagraph}[1]    %argument is an 'includegraphics' command
+    {\newcommand\picturetoplace{#1}     % using variable directly gives an error
+    \begin{minipageparindent}[t]{0.7\textwidth} %
+    \vspace{0pt}    %Make sure that the top base is at the absolute top
+    }   
+    {
+    \end{minipageparindent}
+    \begin{minipage}[t]{0.3\textwidth}
+    \vspace{0pt}    %Make sure that the top base is at the absolute top of the minipage
+    \picturetoplace
+    \end{minipage}\\}
+
+
+%-----------------------------------------------------------------
+%Disini awal masukan untuk data proposal skripsi
+%-----------------------------------------------------------------
+\titleind{Implementasi Modul Indexing Pada Search Engine Telusuri Dengan 
+Integrasi Inverted Index dan Generalized Suffix Tree Untuk Mereduksi Waktu 
+Pencarian}
+
+\fullname{Mochammad Hanif Ramadhan}
+
+\idnum{1313619025}
+
+\approvaldate{21 Agustus 2023}
+
+\degree{Sarjana Ilmu Komputer}
+
+\yearsubmit{2023}
+
+\program{Ilmu Komputer}
+
+\dept{Ilmu Komputer}
+
+\firstsupervisor{Muhammad Eka Suryana, M. Kom.}
+\firstnip{198512232012121002}
+
+\secondsupervisor{Med Irzal, M. Kom.}
+\secondnip{197706152003121001}
+
+%-----------------------------------------------------------------
+%Disini akhir masukan untuk data proposal skripsi
+%-----------------------------------------------------------------
+
+\tolerance=1
+\emergencystretch=\maxdimen{}
+\hyphenpenalty=10000
+\hbadness=10000
+
+\begin{document}
+
+\cover{}
+\clearpage{}
+\setcounter{page}{1}
+%-----------------------------------------------------------------
+
+%-----------------------------------------------------------------
+%Disini akhir masukan untuk muka skripsi
+%-----------------------------------------------------------------
+% \include{pengesahan}
+% \includepdf[pages=-]{LembarPengesahan.pdf}
+\include{pernyataan}
+\include{kata-pengantar}
+\addcontentsline{toc}{chapter}{KATA PENGANTAR}
+\include{abstrak}
+\addcontentsline{toc}{chapter}{ABSTRAK}
+\include{abstrak_eng}
+\addcontentsline{toc}{chapter}{ABSTRACT}
+\singlespacing{}
+\tableofcontents{}
+\addcontentsline{toc}{chapter}{DAFTAR ISI}
+\listoffigures{}
+\addcontentsline{toc}{chapter}{DAFTAR GAMBAR}
+\listoftables{}
+\addcontentsline{toc}{chapter}{DAFTAR TABEL}
+
+\begin{counterpage}
+\end{counterpage}
+%Disini awal masukan untuk Bab
+%-----------------------------------------------------------------
+\onehalfspacing{}
+\include{bab1}
+\include{bab2}
+\include{bab3}
+\include{bab4}
+\include{bab5}
+
+%-----------------------------------------------------------------
+%Disini akhir masukan Bab
+%-----------------------------------------------------------------
+
+
+%-----------------------------------------------------------------
+% Disini awal masukan untuk Daftar Pustaka
+% - Daftar pustaka diambil dari file .bib yang ada pada folder ini
+%   juga.
+% - Untuk memudahkan dalam memanajemen dan menggenerate file .bib
+%   gunakan reference manager seperti Mendeley, Zotero, EndNote,
+%   dll.
+%-----------------------------------------------------------------
+% \bibliography{daftar-pustaka}
+% \bibliographystyle{apalike}
+\addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}
+\singlespacing{}
+\printbibliography{}
+%-----------------------------------------------------------------
+%Disini akhir masukan Daftar Pustaka
+%-----------------------------------------------------------------
+
+\include{lampiran}
+\include{cv}
+
+
+\end{document}

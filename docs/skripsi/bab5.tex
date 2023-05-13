@@ -1,0 +1,61 @@
+%!TEX root = ./template-skripsi.tex
+%-------------------------------------------------------------------------------
+%                          BAB V
+%               		KESIMPULAN DAN SARAN
+%-------------------------------------------------------------------------------
+
+\chapter{KESIMPULAN DAN SARAN}
+
+\section{Kesimpulan}
+
+Berdasarkan hasil dari implementasi dan pengujian terhadap arsitektur
+\textit{inverted index}, maka diperoleh kesimpulan sebagai berikut:
+
+\begin{enumerate}
+	\item{Data pada kolom \textit{paragraph} dengan jumlah 1.010.083 baris dari
+		tabel \textit{page\_paragraph} berhasil digunakan untuk membuat struktur
+		\textit{inverted index}.}
+	\item{Modul \textit{indexer} berbasis \textit{inverted index} yang digunakan
+		untuk melakukan pemeringkatan pada \textit{query} yang diberikan oleh 
+		pengguna telah selesai dibuat.}
+	\item{Penyimpanan persisten untuk struktur \textit{inverted index} 
+		diimplementasikan sebagai penyimpanan sederhana dalam satu proses yang sama 
+		dengan modul \textit{indexer}.}
+	\item{Integrasi dengan struktur \textit{GST} yang telah dibuat pada penelitian 
+		sebelumnya berhasil diintegrasikan dengan struktur \textit{inverted index}.}
+	\item{Integrasi dengan struktur \textit{GST} dapat memberikan reduksi waktu 
+		pencarian yang signifikan jika dibandingkan hanya dengan penggunaan
+		\textit{inverted index} saja, dengan rasio perbedaan berkisar antara 85 
+		- 98\%.}
+	\item{Relevansi pencarian tidak terlalu baik jika hanya menggunakan
+		\textit{inverted index}. Hasil menjadi lebih relevan ketika menggunakan 
+		integrasi \textit{GST}.}
+	\item{Informasi yang ada pada \textit{tag} paragraf (\textit{<p>}) tidak cukup 
+		untuk menjadi dasar dalam pemeringkatan hasil pencarian.}
+\end{enumerate}
+
+\section{Saran}
+
+Adapun saran untuk penelitian selanjutnya adalah:
+\begin{enumerate} 
+	\item{Melanjutkan penelitian tentang informasi lain yang dapat di ekstrak dari 
+		suatu halaman web untuk meningkatkan hasil pencarian.}
+	\item{Melakukan perombakan terhadap struktur \textit{hitlists} agar bisa 
+		direferensikan melalui alamat memori untuk menghilangkan redundansi pada 
+		struktur dengan integrasi \textit{GST}.}
+	\item{Melanjutkan penelitian tentang penggunaan kompresi pada struktur
+		\textit{hit} untuk mereduksi penggunaan memori.}
+	\item{Menuliskan implementasi \textit{indexer} dengan menggunakan bahasa lain 
+		yang lebih cepat dan mampu mengeksploitasi sistem \textit{multi-thread} 
+		dengan lebih baik seperti \textit{Rust} atau \textit{C++}.}
+	\item{Melanjutkan penelitian tentang distribusi penyimpanan dan penggunaan 
+		\textit{hitlists} pada memori.}
+\end{enumerate}
+
+
+% Baris ini digunakan untuk membantu dalam melakukan sitasi
+% Karena diapit dengan comment, maka baris ini akan diabaikan
+% oleh compiler LaTeX.
+\begin{comment}
+\bibliography{daftar-pustaka}
+\end{comment}
