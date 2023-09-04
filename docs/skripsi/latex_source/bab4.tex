@@ -195,16 +195,15 @@ Kemudian, data akan dicetak berdasarkan peringkat dokumen tertinggi.
 
 \subsection{Integrasi dengan \textit{Generalized Suffix Tree (GST)}}
 
-Implementasi \textit{GST} yang dipilih adalah implementasi milik Zaidan yang 
-telah dibuat sebelumnya. Tetapi karena kondisi kode yang tidak bisa langsung 
-berjalan, diperlukan beberapa perbaikan pada kode. Bagian kode yang perlu 
-diperbaiki adalah penggunaan iterasi yang lebih \textit{proper} dan beberapa 
+Implementasi \textit{GST} yang dipilih adalah implementasi dari hasil penelitian
+sebelumnya (\cite{zaidan2023gst}). Tetapi karena kondisi kode yang tidak bisa
+langsung digunakan, diperlukan beberapa perbaikan pada kode. Bagian kode yang
+perlu diperbaiki adalah penggunaan iterasi yang lebih tepat dan beberapa
 penambahan operasi kondisional untuk menangani kesalahan pada data.
 
-% TODO Jelasin perubahan yang dilakukan 
 Perubahan pertama adalah pada kondisi yang digunakan untuk iterasi ketika 
 mengambil informasi dari database. Ditambahkan operasi kondisional untuk 
-mengecek apakah kolom \textit{title} tidak bernilai \textit{NULL} dan memiliki 
+mengecek apakah kolom \textit{title} tidak bernilai \textit{None} dan memiliki 
 panjang lebih dari $0$.
 
 \begin{figure}[H]
@@ -279,9 +278,9 @@ dokumen akan diambil \textit{hitlist} yang memenuhi.
   \caption{Fungsi untuk mengambil dokumen berdasarkan hasil dari \textit{GST}}
 \end{figure}
 
-\subsection{Modifikasi kode \textit{TF\-IDF}}
+\subsection{Modifikasi kode \textit{TF-IDF}}
 
-Metode \textit{TF\-IDF} digunakan sebagai patokan untuk memverifikasi kesesuaian 
+Metode \textit{TF-IDF} digunakan sebagai patokan untuk memverifikasi kesesuaian 
 kata pada hasil pencarian. Kode yang berdasarkan implementasi pemeringkatan 
 dokumen pada penelitian sebelumnya. Kode tersebut tidak bisa dijalankan secara 
 langsung karena penggunaan \textit{dataset} yang besar membuat proses skoring 
