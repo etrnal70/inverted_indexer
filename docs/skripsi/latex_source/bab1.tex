@@ -52,11 +52,11 @@ penyimpanannya, tanpa memublikasikan kode program atau algoritma yang digunakan.
 
 % Arsitektur Telusuri
 Upaya implementasi ulang arsitektur \emph{Google} telah dilakukan
-(\cite{lazuardy2023search}) dan menghasilkan integrasi mesin pencari secara
-utuh. Arsitektur tersebut merupakan pengembangan dari penelitian yang telah
-dilakukan sebelumnya yang menghasilkan \emph{web crawler}
+(\cite{lazuardy2023search}) dan menghasilkan integrasi mesin pencari
+\textit{Telusuri}. Arsitektur tersebut merupakan pengembangan dari penelitian
+yang telah dilakukan sebelumnya yang menghasilkan \emph{web crawler}
 (\cite{fathan2021crawler}). \emph{Web crawler} bertugas mengumpulkan halaman web
-berdasarkan \emph{entrypoint} tertentu. Halaman web tersebut kemudian di ekstrak
+berdasarkan \emph{entry point} tertentu. Halaman web tersebut kemudian di ekstrak
 dan dikumpulkan daftar kata yang termuat pada halaman web tersebut serta
 \emph{outgoing link} yang merujuk kepada halaman web lain. Kedua data tersebut
 kemudian disimpan pada database.
@@ -97,15 +97,14 @@ menggunakan potongan kata biasa (\cite{gonzalo1998wordnet}).
 % Indexing untuk penyimpanan teks
 Terdapat berbagai implementasi \emph{index} yang disesuaikan dengan jenis data
 yang disimpan pada database. Mesin pencari membutuhkan implementasi \emph{index}
-yang dioptimalkan untuk teks secara menyeluruh. Dalam artikel yang berjudul
-\emph{An Efficient Indexing Technique for Full-Text Database Systems}, 
-implementasi \emph{index} yang difokuskan kepada penyimpanan teks setidaknya
-perlu melakukan tiga hal secara efisien. Yang pertama adalah mendukung
-pengambilan dokumen berdasarkan \emph{query} berupa beberapa kata yang
-digabungkan oleh operator logika. Yang kedua adalah memiliki kemampuan untuk
-menambahkan \emph{record} baru secara efisien. Yang ketiga adalah kemampuan
-untuk membuat pemeringkatan terhadap \emph{record} yang ada apabila tidak ada
-data yang memenuhi \emph{query} secara penuh (\cite{zobel1992efficient}).
+yang dioptimalkan untuk teks secara menyeluruh. Implementasi \emph{index} yang
+difokuskan kepada penyimpanan teks setidaknya perlu melakukan tiga hal secara
+efisien. Yang pertama adalah mendukung pengambilan dokumen berdasarkan
+\emph{query} berupa beberapa kata yang digabungkan oleh operator logika.
+Yang kedua adalah memiliki kemampuan untuk menambahkan \emph{record} baru
+secara efisien. Yang ketiga adalah kemampuan untuk membuat pemeringkatan
+terhadap \emph{record} yang ada apabila tidak ada data yang memenuhi
+\emph{query} secara penuh (\cite{zobel1992efficient}).
 
 % Prinsip kerja
 Dari persyaratan di atas, solusi yang umum digunakan untuk database penyimpanan
